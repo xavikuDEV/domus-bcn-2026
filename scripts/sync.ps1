@@ -10,7 +10,9 @@ function Get-ProjectTree($Path, $Indent = "") {
         $line = $Indent + $char + $emoji + $item.Name
         $line | Out-File -FilePath Structure.md -Append -Encoding utf8
         if ($item.PSIsContainer) {
-            Get-ProjectTree -Path $item.FullName -Indent ($Indent + (if ($isLast) { "    " } else { "│   " }))
+            # Corrección aquí: asignar indentación extra antes de la llamada recursiva
+            $extraIndent = if ($isLast) { "    " } else { "│   " }
+            Get-ProjectTree -Path $item.FullName -Indent ($Indent + $extraIndent)
         }
     }
 }
