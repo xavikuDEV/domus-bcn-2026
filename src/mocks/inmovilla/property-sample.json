@@ -1,0 +1,10 @@
+{
+  "inmovilla_id": "REF-BCN-001",
+  "referencia": "DOMUS-LUJO-01",
+  "precio": 850000,
+  "poblacion": "Barcelona",
+  "habitaciones": 3,
+  "baños": 2,
+  "superficie": 120,
+  "imagenes": ["https://example.com/foto1.jpg", "https://example.com/foto2.jpg"]
+}
