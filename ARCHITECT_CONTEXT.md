@@ -1,5 +1,5 @@
 # 🏗️ ARCHITECT CONTEXT: Domus BCN 2026
-> Última actualización: 05/03/2026 22:54:00
+> Última actualización: 05/03/2026 23:12:00
 
 ## 📍 Estado Actual
 - **Fase:** Fase 1 (Backend e Ingesta) — **COMPLETADA** ✅
@@ -39,7 +39,7 @@
 
 ## 🏗️ Estructura del Proyecto
 
-```
+```text
 ├── 📁 src/
 │   ├── 📁 app/              ← Next.js 15 App Router
 │   │   ├── page.tsx, layout.tsx, globals.css
@@ -60,19 +60,52 @@
 ```
 
 ## 🔑 Configuración Técnica
+
 - **Framework:** Next.js 15 (App Router, Server Components)
 - **Base de Datos:** Supabase (RLS habilitado)
 - **Styling:** Tailwind CSS v4
 - **Testing:** Vitest + Test Sprite (E2E)
-- **Repositorio:** https://github.com/xavikuDEV/domus-bcn-2026
+- **Repositorio:** <https://github.com/xavikuDEV/domus-bcn-2026>
 
 ## 🔒 Auditoría de Seguridad (05/03/2026)
+
 - **Snyk SAST:** 0 vulnerabilidades ✅
 - **Arquitectura:** 13/13 archivos < 200 líneas ✅
 - **Tests:** All PASS ✅
 - **RLS Supabase:** Activo ✅
 
 ## 🎯 Roadmap Inmediato
+
 1. **Tarea 6:** Diseño de `PropertyCard.tsx` (Server Component)
 2. **Componentes:** `PropertyGallery.tsx` (grid responsive)
 3. **Queries:** `lib/supabase/queries.ts` (fetch tipado)
+
+## 🔄 Protocolos de Operación Estándar (SOPs)
+
+> **⚠️ OBLIGATORIO:** Ninguna tarea se da por cerrada sin completar este flujo.
+
+| Paso | Acción | Herramienta |
+|------|--------|-------------|
+| 1️⃣ | **QA**: Ejecutar `npm test` y verificar verde | Vitest |
+| 2️⃣ | **Bitácora**: Registrar hito en Notion | MCP Notion |
+| 3️⃣ | **Vault**: Actualizar documentación si aplica | MCP Notion |
+| 4️⃣ | **Roadmap**: Marcar tarea como "Listo" | MCP Notion |
+| 5️⃣ | **Sync**: Commit + push a GitHub | MCP GitHub |
+
+## 📖 Roadmap de Documentación
+
+### Fase 1 — Actual ✅
+
+- **Vault de Notion** como bóveda de conocimiento centralizada y privada.
+
+### Fase 2 — Post-Frontend
+
+- **Nextra / Starlight**: Web de documentación generada desde Markdown.
+  - Carpeta `/docs` convertida en sitio estático premium.
+  - Technical Writer mantiene actualización continua.
+
+### Fase 3 — Escalado
+
+- **TypeDoc**: Documentación automática desde comentarios TypeScript.
+  - Genera referencia API de funciones, servicios y componentes.
+  - Permite onboarding inmediato de futuros agentes.
