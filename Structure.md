@@ -1,5 +1,5 @@
 # 🏗️ Estructura del Proyecto: Domus BCN 2026
-> Última actualización: 05/03/2026 01:42:11
+> Última actualización: 05/03/2026 02:26:39
 
 ├── 📁 src
 │   ├── 📁 types
@@ -43,6 +43,7 @@
 │   ├── 📄 git-push.ps1
 │   ├── 📄 generate-context.ps1
 │   ├── 📄 debug-notion.mjs
+│   ├── 📄 cron-sync.mjs
 │   └── 📄 create-task.mjs
 ├── 📁 public
 │   ├── 📄 window.svg

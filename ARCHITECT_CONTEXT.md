@@ -1,13 +1,14 @@
-# 🧠 ARCHITECT CONTEXT: Domus BCN 2026
-> Última actualización: 05/03/2026 01:42:11
+# 🏗️ ARCHITECT CONTEXT: Domus BCN 2026
+> Última actualización: 05/03/2026 02:26:39
 
 ## 📍 Estado Actual
-- **Fase:** Semana 1 - Cimientos e Infraestructura.
-- **Último Hito:** Repositorio GitHub vinculado y Bitácora Notion operativa.
+- **Fase:** Fase 1 (Backend e Ingesta) - **COMPLETADA** ✅.
+- **Último Hito:** Inmueble SU-PA40 sincronizado en Supabase y Bitácora actualizada.
+- **Estado de Infra:** GitHub vinculado vía MCP (npx), Supabase con RLS Activo.
 
 ## 🏗️ Estructura del Proyecto
 # 🏗️ Estructura del Proyecto: Domus BCN 2026
-> Última actualización: 05/03/2026 01:42:11
+> Última actualización: 05/03/2026 02:26:39
 
 ├── 📁 src
 │   ├── 📁 types
@@ -51,6 +52,7 @@
 │   ├── 📄 git-push.ps1
 │   ├── 📄 generate-context.ps1
 │   ├── 📄 debug-notion.mjs
+│   ├── 📄 cron-sync.mjs
 │   └── 📄 create-task.mjs
 ├── 📁 public
 │   ├── 📄 window.svg
@@ -84,12 +86,12 @@
 
 
 ## 🔑 Configuración Técnica
-- **Framework:** Next.js 15 (App Router)
-- **Base de Datos:** Supabase (PostgreSQL)
-- **Comunicación:** Notion API (Bitácora de Eventos)
+- **Framework:** Next.js 15 (App Router).
+- **Base de Datos:** Supabase (RLS habilitado y políticas de lectura pública).
+- **Automatización:** GitHub Actions (sync-inmovilla.yml) configurado cada hora.
 - **Repositorio:** https://github.com/xavikuDEV/domus-bcn-2026
 
-## 🎯 Roadmap Inmediato
-1. Finalizar automatización de documentación (Menú Principal).
-2. Crear Agente de Ingesta (Inmovilla API).
-3. Diseñar Schema de base de datos para agentes.
+## 🎯 Roadmap Inmediato (Mañana)
+1. **Tarea 6 (Prioridad):** Creación de Frontend: Galería de Inmuebles.
+2. **Componente:** Diseñar PropertyCard.tsx para mostrar el ático sincronizado.
+3. **Seguridad:** Verificar auditoría SSL (Tarea 4).
