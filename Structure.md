@@ -1,5 +1,5 @@
 # 🏗️ Estructura del Proyecto: Domus BCN 2026
-> Última actualización: 05/03/2026 00:07:24
+> Última actualización: 05/03/2026 01:42:11
 
 ├── 📁 src
 │   ├── 📁 types
@@ -8,6 +8,7 @@
 │   ├── 📁 services
 │   │   ├── 📁 orchestrator
 │   │   ├── 📁 ingestion
+│   │   │   └── 📄 xml-processor.ts
 │   │   ├── 📁 curation
 │   │   └── 📄 index.ts
 │   ├── 📁 mocks
@@ -32,13 +33,17 @@
 │       ├── 📁 unit
 │       └── 📁 integration
 │           ├── 📄 supabase.test.ts
+│           ├── 📄 notion-roadmap.test.ts
+│           ├── 📄 ingestion.test.ts
 │           └── 📄 env.test.ts
 ├── 📁 scripts
 │   ├── 📄 update-structure.ps1
 │   ├── 📄 sync.ps1
 │   ├── 📄 log-event.mjs
 │   ├── 📄 git-push.ps1
-│   └── 📄 generate-context.ps1
+│   ├── 📄 generate-context.ps1
+│   ├── 📄 debug-notion.mjs
+│   └── 📄 create-task.mjs
 ├── 📁 public
 │   ├── 📄 window.svg
 │   ├── 📄 vercel.svg
