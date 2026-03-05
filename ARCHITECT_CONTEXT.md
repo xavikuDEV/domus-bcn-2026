@@ -95,17 +95,26 @@
 ## 📖 Roadmap de Documentación
 
 ### Fase 1 — Actual ✅
+<<<<<<< HEAD
 
 - **Vault de Notion** como bóveda de conocimiento centralizada y privada.
 
 ### Fase 2 — Post-Frontend
 
+=======
+- **Vault de Notion** como bóveda de conocimiento centralizada y privada.
+
+### Fase 2 — Post-Frontend
+>>>>>>> 70a3b98 (feat: actualizacion architect context v050326)
 - **Nextra / Starlight**: Web de documentación generada desde Markdown.
   - Carpeta `/docs` convertida en sitio estático premium.
   - Technical Writer mantiene actualización continua.
 
 ### Fase 3 — Escalado
+<<<<<<< HEAD
 
+=======
+>>>>>>> 70a3b98 (feat: actualizacion architect context v050326)
 - **TypeDoc**: Documentación automática desde comentarios TypeScript.
   - Genera referencia API de funciones, servicios y componentes.
   - Permite onboarding inmediato de futuros agentes.
