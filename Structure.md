@@ -1,5 +1,5 @@
 # 🏗️ Estructura del Proyecto: Domus BCN 2026
-> Última actualización: 05/03/2026 02:26:39
+> Última actualización: 05/03/2026 22:54:26
 
 ├── 📁 src
 │   ├── 📁 types
@@ -60,9 +60,17 @@
 │   └── 📄 AGENT_ROLES.md
 ├── 📁 .antigravity
 │   └── 📁 skills
+│       ├── 📄 ui_ux_specialist.md
+│       ├── 📄 technical_writer_specialist.md
+│       ├── 📄 sql_supabase_expert.md
+│       ├── 📄 software_architect_specialist.md
+│       ├── 📄 seo_performance_expert.md
+│       ├── 📄 security_specialist.md
 │       ├── 📄 qa_specialist.md
 │       ├── 📄 orchestrator.md
 │       ├── 📄 notion_sync.md
+│       ├── 📄 ingestion_specialist.md
+│       ├── 📄 e2e_testing_specialist.md
 │       └── 📄 devops_sync.md
 ├── 📄 vitest.config.mts
 ├── 📄 tsconfig.json
@@ -72,5 +80,7 @@
 ├── 📄 next.config.ts
 ├── 📄 next-env.d.ts
 ├── 📄 menu.ps1
+├── 📄 Fase1_OK.txt
 ├── 📄 eslint.config.mjs
-└── 📄 ARCHITECT_CONTEXT.md
+├── 📄 ARCHITECT_CONTEXT.md
+└── 📄 agents.md
