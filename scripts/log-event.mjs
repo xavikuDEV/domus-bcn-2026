@@ -14,7 +14,7 @@ import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
-const BITACORA_ID = "319a543c-299c-809d-9231-000b5c5cba68";
+const BITACORA_ID = "319a543c-299c-8021-9578-d108875e4c32";
 const REPO_URL = "https://github.com/xavikuDEV/domus-bcn-2026";
 
 function parseArgs() {
@@ -104,7 +104,6 @@ async function logEvent() {
     console.log(`📎 ${response.url}`);
   } catch (error) {
     console.error("❌ Error Notion:", error.message);
-    // Si es un error de propiedad, dar info útil
     if (error.message.includes("property")) {
       console.log("\n💡 Puede que falten columnas en la Bitácora.");
       console.log("   Ejecuta: node scripts/debug-notion.mjs para verificar.");
