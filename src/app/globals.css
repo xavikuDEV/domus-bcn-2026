@@ -1,18 +1,20 @@
 @import "tailwindcss";
 
 /* ============================================
-   DOMUS BCN 2026 — Brand DNA (Alta Fidelidad)
-   Colores: Azul #00a4e4 · Negro #000 · Blanco #fff
+   DOMUS BCN 2026 \u2014 Brand DNA (Alta Fidelidad)
+   Colores: Azul #00a4e4 \u00b7 Negro #000 \u00b7 Blanco #fff
+   Fondo: BLANCO \u2014 limpio, luminoso, premium
    ============================================ */
 
 :root {
   --background: #ffffff;
-  --foreground: #000000;
+  --foreground: #1a1a1a;
   --brand-blue: #00a4e4;
   --brand-blue-dark: #0088c2;
+  --brand-blue-light: #e6f6fd;
   --brand-black: #000000;
   --brand-white: #ffffff;
-  --brand-gray-light: #f5f5f5;
+  --brand-gray-light: #f7f7f7;
   --brand-gray: #9ca3af;
   --brand-gray-dark: #374151;
 }
@@ -22,6 +24,7 @@
   --color-foreground: var(--foreground);
   --color-brand-blue: var(--brand-blue);
   --color-brand-blue-dark: var(--brand-blue-dark);
+  --color-brand-blue-light: var(--brand-blue-light);
   --color-brand-black: var(--brand-black);
   --color-brand-white: var(--brand-white);
   --color-brand-gray-light: var(--brand-gray-light);
@@ -29,15 +32,6 @@
   --color-brand-gray-dark: var(--brand-gray-dark);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-    --brand-gray-light: #111111;
-    --brand-gray-dark: #d1d5db;
-  }
 }
 
 body {
@@ -51,6 +45,14 @@ html {
 }
 
 ::selection {
-  background-color: rgba(0, 164, 228, 0.3);
+  background-color: rgba(0, 164, 228, 0.25);
   color: inherit;
+}
+
+/* Unified hover transition for all interactive elements */
+.hover-lift {
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hover-lift:hover {
+  transform: scale(1.02);
 }
