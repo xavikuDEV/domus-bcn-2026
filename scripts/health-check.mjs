@@ -4,7 +4,7 @@
  * Verifica que todos los servicios y conexiones estén operativos:
  * - Variables de entorno
  * - Supabase (conexión + tabla inmuebles)
- * - Notion (conexión + bases de datos)
+ * - Notion (conexión + Bitácora + Roadmap)
  *
  * Uso: node scripts/health-check.mjs
  */
@@ -12,6 +12,10 @@ import { Client } from "@notionhq/client";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
+
+// IDs reales detectados via debug-notion.mjs
+const BITACORA_ID = "319a543c-299c-809d-9231-000b5c5cba68";
+const ROADMAP_ID = "319a543c299c8018a2ae000b4527666c";
 
 const checks = [];
 function pass(name, detail) {
@@ -83,30 +87,50 @@ async function checkNotion() {
   console.log("\n📓 Notion:");
   try {
     const notion = new Client({ auth: process.env.NOTION_SECRET });
+
+    // 1. Test conexión general
     const response = await notion.search({ page_size: 5 });
-
     if (response.results.length > 0) {
-      const dbCount = response.results.filter(
-        (r) => r.object === "database",
-      ).length;
       pass("Conexión", `OK — ${response.results.length} objetos accesibles`);
-
-      // Buscar Bitácora
-      const bitacora = response.results.find(
-        (r) =>
-          r.object === "database" &&
-          r.title?.[0]?.plain_text?.includes("Bitácora"),
-      );
-      if (bitacora) {
-        pass("Bitácora", `Encontrada (${bitacora.id})`);
-      } else {
-        console.log("  ⚠️  Bitácora: No encontrada directamente (puede estar más abajo)");
-      }
     } else {
       fail("Conexión", "Sin objetos accesibles — revisa permisos");
+      return;
+    }
+
+    // 2. Verificar Bitácora por ID directo (no por título)
+    try {
+      const bitacora = await notion.databases.retrieve({
+        database_id: BITACORA_ID,
+      });
+      const title =
+        bitacora.title?.[0]?.plain_text || "Sin título";
+      pass("Bitácora", `"${title}" (${BITACORA_ID.substring(0, 8)}...)`);
+    } catch {
+      fail(
+        "Bitácora",
+        `No accesible con ID ${BITACORA_ID.substring(0, 8)}... — revisa permisos`,
+      );
+    }
+
+    // 3. Verificar Roadmap por ID directo
+    try {
+      const roadmap = await notion.databases.retrieve({
+        database_id: ROADMAP_ID,
+      });
+      const title =
+        roadmap.title?.[0]?.plain_text || "Sin título";
+      pass("Roadmap", `"${title}" (${ROADMAP_ID.substring(0, 8)}...)`);
+    } catch {
+      fail(
+        "Roadmap",
+        `No accesible con ID ${ROADMAP_ID.substring(0, 8)}... — revisa permisos`,
+      );
     }
   } catch (error) {
     fail("Notion", error.message);
+    if (error.code === "unauthorized") {
+      console.log("💡 Verifica que NOTION_SECRET en .env.local es correcto.");
+    }
   }
 }
 
