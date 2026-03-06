@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Domus BCN 2026 \u2014 Portal Inmobiliario Premium",
+  title: "Domus BCN 2026 — Portal Inmobiliario Premium",
   description:
     "Encuentra tu hogar ideal en Barcelona. Propiedades exclusivas, pisos, casas y locales sincronizados desde Inmovilla.",
 };
@@ -27,6 +27,7 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning={true}
       >
         {children}
       </body>

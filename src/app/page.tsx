@@ -8,9 +8,9 @@ export default function Home() {
       {/* Navbar (fixed, glass) */}
       <Navbar />
 
-      {/* Hero Section \u2014 imagen de fondo + overlay oscuro suave */}
+      {/* Hero Section — imagen de fondo + overlay oscuro suave */}
       <section className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-4 py-24 text-center">
-        {/* Background image \u2014 Luxury Barcelona */}
+        {/* Background image — Luxury Barcelona */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -23,19 +23,18 @@ export default function Home() {
 
         <div className="relative z-10 mx-auto max-w-4xl pt-16">
           <h1 className="text-3xl font-black uppercase leading-tight tracking-wider text-white drop-shadow-lg sm:text-5xl lg:text-6xl">
-            TU HOGAR EN{" "}
-            <span className="text-brand-blue">BARCELONA</span>
+            TU HOGAR EN <span className="text-brand-blue">BARCELONA</span>
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed tracking-wide text-white/80 sm:text-base">
-            Expertos inmobiliarios con m\u00e1s de 20 a\u00f1os de experiencia.
-            Compra, vende o alquila con la confianza de los mejores profesionales.
+            Expertos inmobiliarios con más de 20 años de experiencia. Compra,
+            vende o alquila con la confianza de los mejores profesionales.
           </p>
 
           {/* 3 CTAs rectangulares */}
           <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
             <Link
               href="#inmuebles"
-              className="hover-lift w-full border-2 border-white bg-white/10 px-10 py-4 text-sm font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-brand-black sm:w-auto"
+              className="hover-lift w-full border-2 border-white bg-white/10 px-10 py-4 text-sm font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-brand-black sm:w-auto"
             >
               QUIERO COMPRAR
             </Link>
@@ -47,7 +46,7 @@ export default function Home() {
             </Link>
             <Link
               href="#inmuebles"
-              className="hover-lift w-full border-2 border-white/50 bg-white/10 px-10 py-4 text-sm font-bold uppercase tracking-widest text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white hover:text-white sm:w-auto"
+              className="hover-lift w-full border-2 border-white bg-white/10 px-10 py-4 text-sm font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-brand-black sm:w-auto"
             >
               QUIERO ALQUILAR
             </Link>
@@ -60,18 +59,16 @@ export default function Home() {
         <PropertyGallery />
       </main>
 
-      {/* Secci\u00f3n Valoraci\u00f3n */}
-      <section
-        id="valoracion"
-        className="bg-brand-gray-light px-4 py-20"
-      >
+      {/* Sección Valoración */}
+      <section id="valoracion" className="bg-brand-gray-light px-4 py-20">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-black uppercase tracking-wider text-brand-black sm:text-3xl">
             VALORA TU INMUEBLE
           </h2>
           <div className="mx-auto mt-3 h-1 w-16 bg-brand-blue" />
           <p className="mt-4 text-sm text-brand-gray">
-            Descubre el valor real de tu propiedad con nuestra valoraci\u00f3n profesional gratuita.
+            Descubre el valor real de tu propiedad con nuestra valoración
+            profesional gratuita.
           </p>
 
           <form className="mt-10 flex flex-col gap-4">
@@ -87,11 +84,11 @@ export default function Home() {
             />
             <input
               type="tel"
-              placeholder="Tu tel\u00e9fono"
+              placeholder="Tu teléfono"
               className="w-full border border-gray-200 bg-white px-4 py-3 text-sm text-brand-black outline-none transition-all duration-300 focus:border-brand-blue focus:shadow-sm"
             />
             <textarea
-              placeholder="Direcci\u00f3n del inmueble"
+              placeholder="Dirección del inmueble"
               rows={3}
               className="w-full resize-none border border-gray-200 bg-white px-4 py-3 text-sm text-brand-black outline-none transition-all duration-300 focus:border-brand-blue focus:shadow-sm"
             />
@@ -99,7 +96,7 @@ export default function Home() {
               type="submit"
               className="hover-lift mt-2 w-full bg-brand-black py-4 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-gray-800"
             >
-              SOLICITAR VALORACI\u00d3N
+              SOLICITAR VALORACIÓN
             </button>
           </form>
         </div>
@@ -116,7 +113,8 @@ export default function Home() {
                 DOMUS <span className="text-brand-blue">BCN</span>
               </span>
               <p className="mt-3 text-xs leading-relaxed text-gray-500">
-                Portal inmobiliario premium en Barcelona. M\u00e1s de 20 a\u00f1os de experiencia al servicio de nuestros clientes.
+                Portal inmobiliario premium en Barcelona. Más de 20 años de
+                experiencia al servicio de nuestros clientes.
               </p>
             </div>
 
@@ -126,9 +124,9 @@ export default function Home() {
                 CONTACTO
               </h4>
               <ul className="mt-3 space-y-2 text-xs text-gray-500">
-                <li>\ud83d\udccd Barcelona, Espa\u00f1a</li>
-                <li>\ud83d\udcde +34 93 XXX XX XX</li>
-                <li>\u2709\ufe0f info@domusbcn.com</li>
+                <li>📍 Barcelona, España</li>
+                <li>📞 +34 93 XXX XX XX</li>
+                <li>✉️ info@domusbcn.com</li>
               </ul>
             </div>
 
@@ -139,7 +137,7 @@ export default function Home() {
               </h4>
               <ul className="mt-3 space-y-2 text-xs text-gray-500">
                 <li>Aviso Legal</li>
-                <li>Pol\u00edtica de Privacidad</li>
+                <li>Política de Privacidad</li>
                 <li>Cookies</li>
               </ul>
             </div>
@@ -147,7 +145,7 @@ export default function Home() {
 
           {/* Bottom bar */}
           <div className="mt-10 border-t border-gray-800 pt-6 text-center text-xs text-gray-600">
-            \u00a9 2026 Domus BCN \u2014 Todos los derechos reservados
+            © 2026 Domus BCN — Todos los derechos reservados
           </div>
         </div>
       </footer>
