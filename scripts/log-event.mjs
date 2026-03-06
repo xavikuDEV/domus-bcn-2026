@@ -1,16 +1,21 @@
 /**
  * DOMUS BCN 2026 — Registrar evento en Bitácora de Notion
  *
- * Uso:
- *   node scripts/log-event.mjs "Acción realizada" "archivo1.ts, archivo2.tsx"
- *   node scripts/log-event.mjs "Acción" "archivos" --fase "S2: Frontend" --agente "🎨 UI/UX"
+ * Uso básico:
+ *   node scripts/log-event.mjs "Acción realizada" "archivos"
+ *
+ * Uso completo (desde git-push.ps1):
+ *   node scripts/log-event.mjs "Acción" "archivos" --hash "abc1234" --impacto "Alto" --duracion "45s" --fase "S2: Frontend"
+ *
+ * Flags opcionales: --fase, --agente, --categoria, --hash, --impacto, --duracion
  */
 import { Client } from "@notionhq/client";
 import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
-const BITACORA_ID = "319a543c-299c-8021-9578-d108875e4c32";
+const BITACORA_ID = "319a543c-299c-809d-9231-000b5c5cba68";
+const REPO_URL = "https://github.com/xavikuDEV/domus-bcn-2026";
 
 function parseArgs() {
   const args = process.argv.slice(2);
@@ -20,6 +25,9 @@ function parseArgs() {
     fase: null,
     agente: "🤖 Orquestador",
     categoria: "General",
+    hash: null,
+    impacto: "Medio",
+    duracion: null,
   };
 
   for (let i = 2; i < args.length; i += 2) {
@@ -28,14 +36,28 @@ function parseArgs() {
     if (flag === "fase") result.fase = value;
     if (flag === "agente") result.agente = value;
     if (flag === "categoria") result.categoria = value;
+    if (flag === "hash") result.hash = value;
+    if (flag === "impacto") result.impacto = value;
+    if (flag === "duracion") result.duracion = value;
   }
 
   return result;
 }
 
 async function logEvent() {
-  const { action, files, fase, agente, categoria } = parseArgs();
-  const today = new Date().toISOString().split("T")[0];
+  const { action, files, fase, agente, categoria, hash, impacto, duracion } =
+    parseArgs();
+
+  const now = new Date();
+  const today = now.toISOString().split("T")[0];
+  const hora = now.toLocaleTimeString("es-ES", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
+  // Construir URL de commit si hay hash
+  const commitUrl = hash ? `${REPO_URL}/commit/${hash}` : REPO_URL;
 
   const properties = {
     "Acción Realizada": {
@@ -44,16 +66,27 @@ async function logEvent() {
     Agente: { select: { name: agente } },
     Estado: { status: { name: "Listo" } },
     Fecha: { date: { start: today } },
+    Hora: {
+      rich_text: [{ text: { content: hora } }],
+    },
     Categoría: { select: { name: categoria } },
+    Impacto: { select: { name: impacto } },
     "Archivos Tocados": {
       rich_text: [{ text: { content: files.substring(0, 2000) } }],
     },
     "Commit / Link (URL)": {
-      url: "https://github.com/xavikuDEV/domus-bcn-2026",
+      url: commitUrl,
     },
   };
 
-  // Solo añadir Fase si se especifica (evitar error si el select no tiene la opción)
+  // Añadir Duración si se especifica
+  if (duracion) {
+    properties["Duración"] = {
+      rich_text: [{ text: { content: duracion } }],
+    };
+  }
+
+  // Añadir Fase si se especifica
   if (fase) {
     properties.Fase = { select: { name: fase } };
   }
@@ -63,10 +96,19 @@ async function logEvent() {
       parent: { database_id: BITACORA_ID },
       properties,
     });
-    console.log(`✅ Bitácora actualizada: ${action}`);
-    console.log(`🔗 ${response.url}`);
+    console.log(`✅ Bitácora: ${action}`);
+    console.log(`🕐 Hora: ${hora} | Impacto: ${impacto}${duracion ? ` | Duración: ${duracion}` : ""}`);
+    if (hash) {
+      console.log(`🔗 ${commitUrl}`);
+    }
+    console.log(`📎 ${response.url}`);
   } catch (error) {
     console.error("❌ Error Notion:", error.message);
+    // Si es un error de propiedad, dar info útil
+    if (error.message.includes("property")) {
+      console.log("\n💡 Puede que falten columnas en la Bitácora.");
+      console.log("   Ejecuta: node scripts/debug-notion.mjs para verificar.");
+    }
     process.exit(1);
   }
 }

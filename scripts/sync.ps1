@@ -1,6 +1,6 @@
 # ==============================================
 # DOMUS BCN 2026 — Sincronización Completa
-# Pipeline seguro: Structure → Context → Tests → Git Push
+# Pipeline: Structure → Context → Tests → Git Push (rebase)
 # Si los tests fallan, se aborta el push.
 # ==============================================
 
@@ -12,6 +12,7 @@ param(
 Write-Host "===========================================" -ForegroundColor Yellow
 Write-Host "  🔄 SINCRONIZACIÓN COMPLETA — DOMUS BCN  " -ForegroundColor Yellow
 Write-Host "===========================================" -ForegroundColor Yellow
+$startTime = Get-Date
 
 # 1. Actualizar Structure.md
 Write-Host "`n[1/4] 🌳 Actualizando Structure.md..." -ForegroundColor Cyan
@@ -35,17 +36,35 @@ if (-not $SkipTests) {
     Write-Host "`n[3/4] ⏭️  Tests omitidos (--SkipTests)." -ForegroundColor Yellow
 }
 
-# 4. Git Push
-Write-Host "`n[4/4] 🚀 Subiendo a GitHub..." -ForegroundColor Magenta
+# 4. Git Push (con rebase obligatorio para historial lineal)
+Write-Host "`n[4/4] 🚀 Subiendo a GitHub (rebase + push)..." -ForegroundColor Magenta
 
 if ($AutoCommit) {
+    # Capturar archivos y hacer commit automático
+    $changedFiles = (git status --porcelain |
+        ForEach-Object { ($_ -replace '^..', '').Trim() } |
+        Select-Object -First 15) -join ", "
+
     $msg = "sync: actualización automática $(Get-Date -Format 'dd/MM/yyyy HH:mm')"
     git add .
     git commit -m $msg
+
+    # Rebase obligatorio
+    Write-Host "🔄 Rebase..." -ForegroundColor Cyan
+    git pull --rebase origin main
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "❌ Conflicto en rebase. Resuelve manualmente." -ForegroundColor Red
+        exit 1
+    }
+
     git push origin main
     if ($LASTEXITCODE -eq 0) {
-        Write-Host "✅ Push automático exitoso." -ForegroundColor Green
-        node scripts/log-event.mjs "$msg" "auto-sync"
+        $hash = git rev-parse --short HEAD
+        $duration = (New-TimeSpan -Start $startTime -End (Get-Date)).TotalSeconds
+        $durationStr = "$([math]::Round($duration, 0))s"
+
+        Write-Host "✅ Push automático exitoso ($hash)." -ForegroundColor Green
+        node scripts/log-event.mjs "$msg" "$changedFiles" --hash "$hash" --impacto "Bajo" --duracion "$durationStr"
     } else {
         Write-Host "❌ Error en git push." -ForegroundColor Red
         exit 1
@@ -54,6 +73,7 @@ if ($AutoCommit) {
     & "$PSScriptRoot\git-push.ps1"
 }
 
+$totalDuration = [math]::Round((New-TimeSpan -Start $startTime -End (Get-Date)).TotalSeconds, 1)
 Write-Host "`n===========================================" -ForegroundColor Green
-Write-Host "  ✅ SINCRONIZACIÓN COMPLETADA             " -ForegroundColor Green
+Write-Host "  ✅ SINCRONIZACIÓN COMPLETADA ($($totalDuration)s)  " -ForegroundColor Green
 Write-Host "===========================================" -ForegroundColor Green
