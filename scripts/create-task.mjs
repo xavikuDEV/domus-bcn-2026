@@ -1,37 +1,64 @@
+/**
+ * DOMUS BCN 2026 — Crear tarea en el Roadmap de Notion
+ *
+ * Uso:
+ *   node scripts/create-task.mjs "Nombre de la tarea"
+ *   node scripts/create-task.mjs "Tarea" --especialista "🎨 UI/UX Specialist" --estado "En progreso"
+ */
 import { Client } from "@notionhq/client";
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
-// Usamos el ID exacto que detectó el script detective:
-const databaseId = "319a543c299c8018a2ae000b4527666c";
+const ROADMAP_ID = "319a543c299c8018a2ae000b4527666c";
+
+function parseArgs() {
+  const args = process.argv.slice(2);
+  const result = {
+    title: args[0] || "Nueva Tarea",
+    especialista: null,
+    estado: "Sin empezar",
+  };
+
+  for (let i = 1; i < args.length; i += 2) {
+    const flag = args[i]?.replace("--", "");
+    const value = args[i + 1];
+    if (flag === "especialista") result.especialista = value;
+    if (flag === "estado") result.estado = value;
+  }
+
+  return result;
+}
 
 async function createTask() {
-  try {
-    console.log("📝 Intentando crear tarea en el Roadmap detectado...");
+  const { title, especialista, estado } = parseArgs();
 
+  const properties = {
+    Tarea: {
+      title: [{ text: { content: title } }],
+    },
+  };
+
+  // Añadir Especialista si se proporciona
+  if (especialista) {
+    properties.Especialista = { select: { name: especialista } };
+  }
+
+  // Añadir Estado si la columna existe
+  try {
     const response = await notion.pages.create({
-      parent: { database_id: databaseId },
-      properties: {
-        // Esta debe ser la columna con el icono 'Aa'
-        Tarea: {
-          title: [{ text: { content: "🚀 Fase 0: Cimientos Completados" } }],
-        },
-        // He quitado Especialista y Estado para validar que el título funciona primero
-      },
+      parent: { database_id: ROADMAP_ID },
+      properties,
     });
 
-    console.log("✅ ¡TAREA CREADA EXITOSAMENTE!");
-    console.log(`🔗 Puedes verla aquí: ${response.url}`);
+    console.log(`✅ Tarea creada: "${title}"`);
+    console.log(`🔗 ${response.url}`);
   } catch (error) {
     console.error("❌ Error de Notion:", error.message);
-    console.log("\n💡 SOLUCIÓN RÁPIDA:");
-    console.log(
-      "1. Asegúrate de que la columna con el icono 'Aa' se llame 'Tarea'.",
-    );
-    console.log(
-      "2. Verifica que has dado permisos a tu integración en Notion (Connect to).",
-    );
+    console.log("\n💡 Solución:");
+    console.log("1. Verifica que la columna 'Tarea' (Aa) existe en tu Roadmap.");
+    console.log("2. Verifica los permisos de la integración (Connect to).");
+    process.exit(1);
   }
 }
 

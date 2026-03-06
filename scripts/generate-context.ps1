@@ -1,29 +1,57 @@
-$contextFile = "ARCHITECT_CONTEXT.md"
-Write-Host "🧠 Actualizando Contexto de Arquitectura para Fin de Sesión..." -ForegroundColor Cyan
+# ==============================================
+# DOMUS BCN 2026 — Actualizar ARCHITECT_CONTEXT.md
+# SEGURO: Solo actualiza la sección de Estructura,
+# sin sobrescribir el resto del archivo.
+# ==============================================
 
-$content = @"
-# 🏗️ ARCHITECT CONTEXT: Domus BCN 2026
-> Última actualización: $(Get-Date -Format 'dd/MM/yyyy HH:mm:ss')
+param(
+    [string]$ContextFile = "ARCHITECT_CONTEXT.md"
+)
 
-## 📍 Estado Actual
-- **Fase:** Fase 1 (Backend e Ingesta) - **COMPLETADA** ✅.
-- **Último Hito:** Inmueble SU-PA40 sincronizado en Supabase y Bitácora actualizada.
-- **Estado de Infra:** GitHub vinculado vía MCP (npx), Supabase con RLS Activo.
+Write-Host "🧠 Actualizando sección de estructura en $ContextFile..." -ForegroundColor Cyan
 
+if (-not (Test-Path $ContextFile)) {
+    Write-Host "⚠️ $ContextFile no existe. Primero créalo manualmente." -ForegroundColor Yellow
+    exit 1
+}
+
+if (-not (Test-Path "Structure.md")) {
+    Write-Host "⚠️ Structure.md no existe. Ejecuta update-structure.ps1 primero." -ForegroundColor Yellow
+    exit 1
+}
+
+$content = Get-Content $ContextFile -Raw -Encoding utf8
+$structure = Get-Content "Structure.md" -Raw -Encoding utf8
+
+# Patrón: buscar el bloque entre "## 🏗️ Estructura del Proyecto" y el siguiente "## "
+$pattern = '(?ms)(## 🏗️ Estructura del Proyecto.*?)(## (?!🏗️))'
+$replacement = @"
 ## 🏗️ Estructura del Proyecto
-$(Get-Content Structure.md -Raw)
+> Auto-generado por ``scripts/generate-context.ps1`` — $(Get-Date -Format 'dd/MM/yyyy HH:mm')
 
-## 🔑 Configuración Técnica
-- **Framework:** Next.js 15 (App Router).
-- **Base de Datos:** Supabase (RLS habilitado y políticas de lectura pública).
-- **Automatización:** GitHub Actions (sync-inmovilla.yml) configurado cada hora.
-- **Repositorio:** https://github.com/xavikuDEV/domus-bcn-2026
+``````
+$($structure -replace '``````', '``\````')
+``````
 
-## 🎯 Roadmap Inmediato (Mañana)
-1. **Tarea 6 (Prioridad):** Creación de Frontend: Galería de Inmuebles.
-2. **Componente:** Diseñar PropertyCard.tsx para mostrar el ático sincronizado.
-3. **Seguridad:** Verificar auditoría SSL (Tarea 4).
+`$2
 "@
 
-$content | Out-File -FilePath $contextFile -Encoding utf8
-Write-Host "✅ ARCHITECT_CONTEXT.md actualizado con éxito de Fase 1." -ForegroundColor Green
+if ($content -match '## 🏗️ Estructura del Proyecto') {
+    $updated = $content -replace $pattern, $replacement
+    $updated | Out-File -FilePath $ContextFile -Encoding utf8 -NoNewline
+    Write-Host "✅ Sección de estructura actualizada en $ContextFile." -ForegroundColor Green
+} else {
+    # Si no existe la sección, añadirla antes del último ## o al final
+    $appendBlock = @"
+
+## 🏗️ Estructura del Proyecto
+> Auto-generado por ``scripts/generate-context.ps1`` — $(Get-Date -Format 'dd/MM/yyyy HH:mm')
+
+``````
+$structure
+``````
+
+"@
+    $content + $appendBlock | Out-File -FilePath $ContextFile -Encoding utf8 -NoNewline
+    Write-Host "✅ Sección de estructura añadida a $ContextFile." -ForegroundColor Green
+}
