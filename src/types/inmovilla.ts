@@ -1,18 +1,21 @@
+/**
+ * InmuebleInmovilla — Tipo que coincide EXACTAMENTE con la tabla `inmuebles` de Supabase.
+ * Fuente de verdad: src/services/ingestion/xml-processor.ts (upsert)
+ */
 export interface InmuebleInmovilla {
-  id: string; // <id>20095003</id>
-  referencia: string; // <ref>SU-PA40</ref>
-  tipo_oferta: string; // <tipo_ofer>Parking</tipo_ofer>
-  operacion: string; // <accion>Vender</accion>
-  provincia: string;
-  poblacion: string; // <ciudad>Hospitalet de Llobregat</ciudad>
+  id: string;
+  referencia: string;
+  tipo_oferta: string;
+  operacion: string;
+  ciudad: string;
   zona: string;
-  precio: number; // <precioinmo>15000</precioinmo>
-  m_construidos: number; // <m_cons>25.00</m_cons>
+  precio: number;
+  metros_cons: number;
   habitaciones: number;
-  baños: number; // <banyos>0</banyos>
-  descripcion_es: string; // <descrip1>
-  titulo_es: string; // <titulo1>
-  fotos: string[]; // Array de <foto1>, <foto2>...
-  agente_nombre: string; // <agente>
-  agente_email: string; // <email_agente>
+  banos: number;
+  descripcion: string;
+  titulo: string;
+  fotos: string[];
+  agente_id: string;
+  sincronizado_at: string;
 }

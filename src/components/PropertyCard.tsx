@@ -1,26 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { InmuebleInmovilla } from "../types/inmovilla";
-import ContactButton from "./ContactButton";
 
 interface PropertyCardProps {
   inmueble: InmuebleInmovilla;
 }
 
-/** Format price with thousands separator and € symbol */
+/** Format price: 150.000 € */
 function formatPrice(price: number): string {
-  return new Intl.NumberFormat("es-ES", {
-    style: "currency",
-    currency: "EUR",
-    maximumFractionDigits: 0,
-  }).format(price);
-}
-
-/** Get badge color based on operation type */
-function getOperationStyle(operacion: string): string {
-  const op = operacion?.toLowerCase() ?? "";
-  if (op.includes("alquil"))
-    return "bg-sky-500/80 text-white";
-  return "bg-emerald-500/80 text-white";
+  return (
+    new Intl.NumberFormat("es-ES", {
+      maximumFractionDigits: 0,
+    }).format(price) + " €"
+  );
 }
 
 export default function PropertyCard({ inmueble }: PropertyCardProps) {
@@ -28,116 +20,98 @@ export default function PropertyCard({ inmueble }: PropertyCardProps) {
   const hasImage = Boolean(heroImage);
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200/60 bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-700/60 dark:bg-slate-800">
-      {/* Image section */}
-      <div className="relative aspect-4/3 w-full overflow-hidden bg-linear-to-br from-slate-200 to-slate-300 dark:from-slate-700 dark:to-slate-600">
+    <article className="group flex flex-col overflow-hidden bg-white transition-shadow duration-300 hover:shadow-lg dark:bg-gray-950">
+      {/* Image section — 4:3 con zoom hover */}
+      <div className="relative aspect-4/3 w-full overflow-hidden bg-gray-100 dark:bg-gray-800">
         {hasImage ? (
           <Image
             src={heroImage}
-            alt={inmueble.titulo_es || `Inmueble ${inmueble.referencia}`}
+            alt={inmueble.titulo || `Inmueble ${inmueble.referencia}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
           />
         ) : (
           <div className="flex h-full items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
+              fill="none"
               viewBox="0 0 24 24"
-              fill="currentColor"
-              className="h-16 w-16 text-slate-400 dark:text-slate-500"
+              strokeWidth={1}
+              stroke="currentColor"
+              className="h-16 w-16 text-gray-300 dark:text-gray-600"
             >
-              <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
-              <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625A1.875 1.875 0 0 1 3.75 19.875v-6.198a.75.75 0 0 1 .091-.086L12 5.432Z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z"
+              />
             </svg>
           </div>
         )}
 
-        {/* Gradient overlay on image */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
-
-        {/* Reference badge */}
-        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold tracking-wide text-slate-700 shadow-sm backdrop-blur-sm dark:bg-slate-900/80 dark:text-slate-200">
-          REF: {inmueble.referencia}
-        </span>
-
-        {/* Operation badge */}
-        <span
-          className={`absolute right-3 top-3 rounded-full px-3 py-1 text-xs font-semibold shadow-sm backdrop-blur-sm ${getOperationStyle(inmueble.operacion)}`}
-        >
+        {/* Badge negro — operación (arriba derecha) */}
+        <span className="absolute right-3 top-3 bg-brand-black px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-white">
           {inmueble.operacion}
         </span>
 
-        {/* Price overlay */}
-        <div className="absolute bottom-3 left-3">
-          <span className="text-2xl font-bold text-white drop-shadow-lg">
+        {/* Precio — overlay oscuro (abajo izquierda) */}
+        <div className="absolute bottom-0 left-0 bg-black/70 px-4 py-2">
+          <span className="text-lg font-bold text-white">
             {formatPrice(inmueble.precio)}
           </span>
         </div>
       </div>
 
       {/* Content section */}
-      <div className="flex flex-1 flex-col gap-3 p-5">
+      <div className="flex flex-1 flex-col gap-3 border border-t-0 border-gray-100 p-4 dark:border-gray-800">
         {/* Title */}
-        <h3 className="line-clamp-2 text-lg font-semibold leading-snug text-slate-800 dark:text-slate-100">
-          {inmueble.titulo_es || "Inmueble sin título"}
+        <h3 className="line-clamp-2 text-sm font-bold uppercase leading-snug tracking-wide text-brand-black dark:text-white">
+          {inmueble.titulo || "Inmueble sin título"}
         </h3>
 
         {/* Location */}
-        <div className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            className="h-4 w-4 shrink-0 text-amber-500"
-          >
-            <path
-              fillRule="evenodd"
-              d="m9.69 18.933.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 0 0 .281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 1 0 3 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 0 0 2.273 1.765 11.842 11.842 0 0 0 .976.544l.062.029.018.008.006.003ZM10 11.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <span className="truncate">
-            {inmueble.poblacion}
-            {inmueble.zona ? `, ${inmueble.zona}` : ""}
-          </span>
-        </div>
+        <p className="text-xs text-brand-gray">
+          {inmueble.ciudad}
+          {inmueble.zona ? ` · ${inmueble.zona}` : ""}
+        </p>
 
-        {/* Stats */}
-        <div className="flex items-center gap-4 border-t border-slate-100 pt-3 text-sm text-slate-600 dark:border-slate-700 dark:text-slate-300">
+        {/* Stats — iconos lineales finos */}
+        <div className="flex items-center gap-5 border-t border-gray-100 pt-3 text-xs text-brand-gray-dark dark:border-gray-800 dark:text-gray-400">
           {inmueble.habitaciones > 0 && (
-            <div className="flex items-center gap-1" title="Habitaciones">
-              <span className="text-base">🛏️</span>
-              <span className="font-medium">{inmueble.habitaciones}</span>
+            <div className="flex items-center gap-1.5" title="Habitaciones">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5Z" />
+              </svg>
+              <span className="font-medium">{inmueble.habitaciones} hab.</span>
             </div>
           )}
-          {inmueble.baños > 0 && (
-            <div className="flex items-center gap-1" title="Baños">
-              <span className="text-base">🚿</span>
-              <span className="font-medium">{inmueble.baños}</span>
+          {inmueble.banos > 0 && (
+            <div className="flex items-center gap-1.5" title="Baños">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <span className="font-medium">{inmueble.banos} baños</span>
             </div>
           )}
-          {inmueble.m_construidos > 0 && (
-            <div className="flex items-center gap-1" title="Metros construidos">
-              <span className="text-base">📐</span>
-              <span className="font-medium">{inmueble.m_construidos} m²</span>
-            </div>
-          )}
-          {inmueble.tipo_oferta && (
-            <div className="ml-auto">
-              <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500 dark:bg-slate-700 dark:text-slate-400">
-                {inmueble.tipo_oferta}
-              </span>
+          {inmueble.metros_cons > 0 && (
+            <div className="flex items-center gap-1.5" title="Metros construidos">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+              </svg>
+              <span className="font-medium">{inmueble.metros_cons} m²</span>
             </div>
           )}
         </div>
 
-        {/* Contact button */}
-        <div className="mt-auto pt-2">
-          <ContactButton
-            agentEmail={inmueble.agente_email || "info@domusbcn.com"}
-            reference={inmueble.referencia}
-          />
+        {/* Botón DETALLES — outline negro */}
+        <div className="mt-auto flex items-center justify-end pt-2">
+          <Link
+            href={`/inmueble/${inmueble.id}`}
+            className="border border-brand-black px-5 py-2 text-[11px] font-bold uppercase tracking-widest text-brand-black transition-colors hover:bg-brand-black hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black"
+          >
+            DETALLES
+          </Link>
         </div>
       </div>
     </article>

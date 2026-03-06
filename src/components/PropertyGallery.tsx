@@ -6,21 +6,26 @@ export default async function PropertyGallery() {
 
   if (inmuebles.length === 0) {
     return (
-      <section className="mx-auto max-w-6xl px-4 py-16 text-center">
-        <div className="mx-auto max-w-md rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-12 dark:border-slate-600 dark:bg-slate-800/50">
+      <section className="mx-auto max-w-6xl px-4 py-20 text-center">
+        <div className="mx-auto max-w-md border border-gray-200 bg-brand-gray-light p-16 dark:border-gray-700 dark:bg-gray-900">
           <svg
             xmlns="http://www.w3.org/2000/svg"
+            fill="none"
             viewBox="0 0 24 24"
-            fill="currentColor"
-            className="mx-auto mb-4 h-12 w-12 text-slate-300 dark:text-slate-600"
+            strokeWidth={1}
+            stroke="currentColor"
+            className="mx-auto mb-6 h-16 w-16 text-gray-300 dark:text-gray-600"
           >
-            <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
-            <path d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625A1.875 1.875 0 0 1 3.75 19.875v-6.198a.75.75 0 0 1 .091-.086L12 5.432Z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0 0 22.5 18.75V5.25A2.25 2.25 0 0 0 20.25 3H3.75A2.25 2.25 0 0 0 1.5 5.25v13.5A2.25 2.25 0 0 0 3.75 21Z"
+            />
           </svg>
-          <h3 className="mb-2 text-lg font-semibold text-slate-700 dark:text-slate-200">
-            No hay inmuebles disponibles
+          <h3 className="mb-2 text-lg font-bold uppercase tracking-wide text-brand-black dark:text-white">
+            SIN INMUEBLES
           </h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm text-brand-gray">
             Los inmuebles aparecerán aquí cuando se sincronicen desde Inmovilla.
           </p>
         </div>
@@ -29,21 +34,20 @@ export default async function PropertyGallery() {
   }
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      {/* Header */}
-      <div className="mb-8 flex items-end justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-slate-800 dark:text-white sm:text-3xl">
-            Inmuebles disponibles
-          </h2>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            {inmuebles.length} {inmuebles.length === 1 ? "resultado" : "resultados"}
-          </p>
-        </div>
+    <section id="inmuebles" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      {/* Section header */}
+      <div className="mb-10 text-center">
+        <h2 className="text-2xl font-black uppercase tracking-wider text-brand-black dark:text-white sm:text-3xl">
+          NUESTROS INMUEBLES
+        </h2>
+        <div className="mx-auto mt-3 h-1 w-16 bg-brand-blue" />
+        <p className="mt-4 text-sm text-brand-gray">
+          {inmuebles.length} {inmuebles.length === 1 ? "propiedad" : "propiedades"} disponibles
+        </p>
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {inmuebles.map((inmueble) => (
           <PropertyCard key={inmueble.id} inmueble={inmueble} />
         ))}
