@@ -1,86 +1,91 @@
 # 🏗️ Estructura del Proyecto: Domus BCN 2026
-> Última actualización: 05/03/2026 22:54:26
+> Última actualización: 07/03/2026 00:25:23
+> Total archivos fuente: **67** · **20** TypeScript · **17** JS · **1** CSS · **10** Markdown
 
+├── 📁 .github
+│   └── 📁 workflows
+│       └── 📄 sync-inmovilla.yml
+├── 📁 docs
+│   ├── 📄 AGENT_ROLES.md
+│   ├── 📄 API_INTEGRATION.md
+│   ├── 📄 ARCHITECT_RULES.md
+│   ├── 📄 ARCHITECTURE_OVERVIEW.md
+│   ├── 📄 DATA_SCHEMA.md
+│   └── 📄 TESTING_STRATEGY.md
+├── 📁 public
+│   ├── 📄 file.svg
+│   ├── 📄 globe.svg
+│   ├── 📄 next.svg
+│   ├── 📄 vercel.svg
+│   └── 📄 window.svg
+├── 📁 scripts
+│   ├── 📄 create-task.mjs
+│   ├── 📄 cron-sync.mjs
+│   ├── 📄 debug-notion-log.mjs
+│   ├── 📄 debug-notion.mjs
+│   ├── 📄 final-log-fix.mjs
+│   ├── 📄 final-verify.mjs
+│   ├── 📄 fire-test-runner.mjss
+│   ├── 📄 force-log.mjs
+│   ├── 📄 generate-context.ps1
+│   ├── 📄 git-push.ps1
+│   ├── 📄 health-check.mjs
+│   ├── 📄 log-event.mjs
+│   ├── 📄 pre-deploy.ps1
+│   ├── 📄 sync.ps1
+│   ├── 📄 test-notion-https.mjs
+│   └── 📄 update-structure.ps1
 ├── 📁 src
-│   ├── 📁 types
-│   │   ├── 📄 inmovilla.ts
-│   │   └── 📄 index.ts
-│   ├── 📁 services
-│   │   ├── 📁 orchestrator
-│   │   ├── 📁 ingestion
-│   │   │   └── 📄 xml-processor.ts
-│   │   ├── 📁 curation
+│   ├── 📁 __tests__
+│   │   ├── 📁 integration
+│   │   │   ├── 📄 env.test.ts
+│   │   │   ├── 📄 ingestion.test.ts
+│   │   │   ├── 📄 notion-roadmap.test.ts
+│   │   │   └── 📄 supabase.test.ts
+│   │   └── 📁 unit
+│   ├── 📁 app
+│   │   ├── 📄 favicon.ico
+│   │   ├── 📄 globals.css
+│   │   ├── 📄 layout.tsx
+│   │   └── 📄 page.tsx
+│   ├── 📁 components
+│   │   ├── 📄 ContactButton.tsx
+│   │   ├── 📄 Navbar.tsx
+│   │   ├── 📄 PropertyCard.tsx
+│   │   └── 📄 PropertyGallery.tsx
+│   ├── 📁 features
+│   ├── 📁 hooks
+│   ├── 📁 lib
+│   │   ├── 📁 inmovilla
+│   │   ├── 📁 notion
+│   │   │   └── 📄 client.ts
+│   │   ├── 📁 supabase
+│   │   │   ├── 📄 client.ts
+│   │   │   └── 📄 queries.ts
 │   │   └── 📄 index.ts
 │   ├── 📁 mocks
 │   │   └── 📁 inmovilla
 │   │       └── 📄 property-sample.json
-│   ├── 📁 lib
-│   │   ├── 📁 supabase
-│   │   │   └── 📄 client.ts
-│   │   ├── 📁 notion
-│   │   │   └── 📄 client.ts
-│   │   ├── 📁 inmovilla
+│   ├── 📁 services
+│   │   ├── 📁 curation
+│   │   ├── 📁 ingestion
+│   │   │   └── 📄 xml-processor.ts
+│   │   ├── 📁 orchestrator
 │   │   └── 📄 index.ts
-│   ├── 📁 hooks
-│   ├── 📁 features
-│   ├── 📁 components
-│   ├── 📁 app
-│   │   ├── 📄 page.tsx
-│   │   ├── 📄 layout.tsx
-│   │   ├── 📄 globals.css
-│   │   └── 📄 favicon.ico
-│   └── 📁 __tests__
-│       ├── 📁 unit
-│       └── 📁 integration
-│           ├── 📄 supabase.test.ts
-│           ├── 📄 notion-roadmap.test.ts
-│           ├── 📄 ingestion.test.ts
-│           └── 📄 env.test.ts
-├── 📁 scripts
-│   ├── 📄 update-structure.ps1
-│   ├── 📄 sync.ps1
-│   ├── 📄 log-event.mjs
-│   ├── 📄 git-push.ps1
-│   ├── 📄 generate-context.ps1
-│   ├── 📄 debug-notion.mjs
-│   ├── 📄 cron-sync.mjs
-│   └── 📄 create-task.mjs
-├── 📁 public
-│   ├── 📄 window.svg
-│   ├── 📄 vercel.svg
-│   ├── 📄 next.svg
-│   ├── 📄 globe.svg
-│   └── 📄 file.svg
-├── 📁 docs
-│   ├── 📄 TESTING_STRATEGY.md
-│   ├── 📄 DATA_SCHEMA.md
-│   ├── 📄 ARCHITECTURE_OVERVIEW.md
-│   ├── 📄 ARCHITECT_RULES.md
-│   ├── 📄 API_INTEGRATION.md
-│   └── 📄 AGENT_ROLES.md
-├── 📁 .antigravity
-│   └── 📁 skills
-│       ├── 📄 ui_ux_specialist.md
-│       ├── 📄 technical_writer_specialist.md
-│       ├── 📄 sql_supabase_expert.md
-│       ├── 📄 software_architect_specialist.md
-│       ├── 📄 seo_performance_expert.md
-│       ├── 📄 security_specialist.md
-│       ├── 📄 qa_specialist.md
-│       ├── 📄 orchestrator.md
-│       ├── 📄 notion_sync.md
-│       ├── 📄 ingestion_specialist.md
-│       ├── 📄 e2e_testing_specialist.md
-│       └── 📄 devops_sync.md
-├── 📄 vitest.config.mts
-├── 📄 tsconfig.json
-├── 📄 README.md
-├── 📄 postcss.config.mjs
-├── 📄 package.json
-├── 📄 next.config.ts
-├── 📄 next-env.d.ts
-├── 📄 menu.ps1
-├── 📄 Fase1_OK.txt
-├── 📄 eslint.config.mjs
+│   └── 📁 types
+│       ├── 📄 index.ts
+│       └── 📄 inmovilla.ts
+├── 📄 .gitignore
+├── 📄 agents.md
 ├── 📄 ARCHITECT_CONTEXT.md
-└── 📄 agents.md
+├── 📄 eslint.config.mjs
+├── 📄 Fase1_OK.txt
+├── 📄 fire_test.bat
+├── 📄 menu.ps1
+├── 📄 next-env.d.ts
+├── 📄 next.config.ts
+├── 📄 package.json
+├── 📄 postcss.config.mjs
+├── 📄 README.md
+├── 📄 tsconfig.json
+└── 📄 vitest.config.mts

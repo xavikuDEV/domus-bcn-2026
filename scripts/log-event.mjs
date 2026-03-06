@@ -14,7 +14,16 @@ import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 const notion = new Client({ auth: process.env.NOTION_SECRET });
-const BITACORA_ID = "319a543c-299c-8021-9578-d108875e4c32";
+
+const normalizeId = (id) => {
+  if (!id) return null;
+  if (id.includes("-")) return id;
+  return id.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, "$1-$2-$3-$4-$5");
+};
+
+const BITACORA_ID =
+  normalizeId(process.env.NOTION_BITACORA_ID) ||
+  "319a543c-299c-8021-9578-d108875e4c32";
 const REPO_URL = "https://github.com/xavikuDEV/domus-bcn-2026";
 
 function parseArgs() {

@@ -1,0 +1,24 @@
+import { execSync } from 'child_process';
+import fs from 'fs';
+
+console.log('--- STARTING BUILD ---');
+try {
+  const buildOutput = execSync('npm run build', { stdio: 'pipe' });
+  fs.writeFileSync('build_success_log.txt', buildOutput.toString());
+  console.log('--- BUILD SUCCESS ---');
+} catch (e) {
+  fs.writeFileSync('build_error_log.txt', e.stdout?.toString() + '\n' + e.stderr?.toString());
+  console.log('--- BUILD FAILED ---');
+  process.exit(1);
+}
+
+console.log('--- STARTING HEALTH CHECK ---');
+try {
+  const healthOutput = execSync('node scripts/health-check.mjs', { stdio: 'pipe' });
+  fs.appendFileSync('build_success_log.txt', '\n\n--- HEALTH CHECK ---\n' + healthOutput.toString());
+  console.log('--- HEALTH CHECK SUCCESS ---');
+} catch (e) {
+  fs.appendFileSync('build_error_log.txt', '\n\n--- HEALTH CHECK FAILED ---\n' + e.stdout?.toString() + '\n' + e.stderr?.toString());
+  console.log('--- HEALTH CHECK FAILED ---');
+  process.exit(1);
+}

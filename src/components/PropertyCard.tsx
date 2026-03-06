@@ -6,12 +6,12 @@ interface PropertyCardProps {
   inmueble: InmuebleInmovilla;
 }
 
-/** Format price: 150.000 \u20ac */
+/** Format price: 150.000 € */
 function formatPrice(price: number): string {
   return (
     new Intl.NumberFormat("es-ES", {
       maximumFractionDigits: 0,
-    }).format(price) + " \u20ac"
+    }).format(price) + " €"
   );
 }
 
@@ -21,7 +21,7 @@ export default function PropertyCard({ inmueble }: PropertyCardProps) {
 
   return (
     <article className="hover-lift group flex flex-col overflow-hidden bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl">
-      {/* Image section \u2014 4:3 con zoom hover */}
+      {/* Image section — 4:3 con zoom hover */}
       <div className="relative aspect-4/3 w-full overflow-hidden bg-gray-50">
         {hasImage ? (
           <Image
@@ -50,7 +50,7 @@ export default function PropertyCard({ inmueble }: PropertyCardProps) {
           </div>
         )}
 
-        {/* Badge negro \u2014 operaci\u00f3n (arriba derecha) */}
+        {/* Badge negro — operación (arriba derecha) */}
         <span className="absolute right-3 top-3 bg-brand-black px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-white">
           {inmueble.operacion}
         </span>
@@ -67,16 +67,16 @@ export default function PropertyCard({ inmueble }: PropertyCardProps) {
       <div className="flex flex-1 flex-col gap-3 border border-t-0 border-gray-100 p-4">
         {/* Title */}
         <h3 className="line-clamp-2 text-sm font-bold uppercase leading-snug tracking-wide text-brand-black">
-          {inmueble.titulo || "Inmueble sin t\u00edtulo"}
+          {inmueble.titulo || "Inmueble sin título"}
         </h3>
 
         {/* Location */}
         <p className="text-xs text-brand-gray">
           {inmueble.ciudad}
-          {inmueble.zona ? ` \u00b7 ${inmueble.zona}` : ""}
+          {inmueble.zona ? ` · ${inmueble.zona}` : ""}
         </p>
 
-        {/* Stats \u2014 iconos lineales finos */}
+        {/* Stats — iconos lineales finos */}
         <div className="flex items-center gap-5 border-t border-gray-100 pt-3 text-xs text-brand-gray-dark">
           {inmueble.habitaciones > 0 && (
             <div className="flex items-center gap-1.5" title="Habitaciones">
@@ -87,11 +87,11 @@ export default function PropertyCard({ inmueble }: PropertyCardProps) {
             </div>
           )}
           {inmueble.banos > 0 && (
-            <div className="flex items-center gap-1.5" title="Ba\u00f1os">
+            <div className="flex items-center gap-1.5" title="Baños">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
               </svg>
-              <span className="font-medium">{inmueble.banos} ba\u00f1os</span>
+              <span className="font-medium">{inmueble.banos} baños</span>
             </div>
           )}
           {inmueble.metros_cons > 0 && (
@@ -99,12 +99,12 @@ export default function PropertyCard({ inmueble }: PropertyCardProps) {
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
               </svg>
-              <span className="font-medium">{inmueble.metros_cons} m\u00b2</span>
+              <span className="font-medium">{inmueble.metros_cons} m²</span>
             </div>
           )}
         </div>
 
-        {/* Bot\u00f3n DETALLES \u2014 outline negro */}
+        {/* Botón DETALLES — outline negro */}
         <div className="mt-auto flex items-center justify-end pt-2">
           <Link
             href={`/inmueble/${inmueble.id}`}

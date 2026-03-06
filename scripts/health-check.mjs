@@ -14,8 +14,15 @@ import dotenv from "dotenv";
 dotenv.config({ path: ".env.local" });
 
 // IDs reales detectados via debug-notion.mjs
-const BITACORA_ID = "319a543c-299c-809d-9231-000b5c5cba68";
-const ROADMAP_ID = "319a543c299c8018a2ae000b4527666c";
+// Normalización de IDs (con o sin guiones)
+const normalizeId = (id) => {
+  if (!id) return null;
+  if (id.includes("-")) return id;
+  return id.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, "$1-$2-$3-$4-$5");
+};
+
+const BITACORA_ID = normalizeId(process.env.NOTION_BITACORA_ID) || "319a543c-299c-809d-9231-000b5c5cba68";
+const ROADMAP_ID = normalizeId(process.env.NOTION_ROADMAP_ID) || "319a543c-299c-8018-a2ae-000b4527666c";
 
 const checks = [];
 function pass(name, detail) {
@@ -146,6 +153,38 @@ async function run() {
   const failures = checks.filter((c) => c.status === "❌");
   if (failures.length === 0) {
     console.log("🟢 TODOS LOS SERVICIOS OPERATIVOS\n");
+    
+    // REGISTRO FINAL DE FASE 1
+    try {
+      const now = new Date();
+      const today = now.toISOString().split("T")[0];
+      const hora = now.toLocaleTimeString("es-ES", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+
+      const notion = new Client({ auth: process.env.NOTION_SECRET });
+      const response = await notion.pages.create({
+        parent: { database_id: BITACORA_ID },
+        properties: {
+          "Acción Realizada": {
+            title: [{ text: { content: "Cierre de Fase 1: Sello Técnico y Gobernanza OK ✅" } }]
+          },
+          "Agente": { select: { name: "🤖 Orquestador" } },
+          "Impacto": { select: { name: "Alto" } },
+          "Estado": { status: { name: "Listo" } },
+          "Fecha": { date: { start: today } },
+          "Hora": { rich_text: [{ text: { content: hora } }] },
+          "Categoría": { select: { name: "DevOps" } },
+          "Fase": { select: { name: "S1: Backend" } },
+          "Archivos Tocados": { rich_text: [{ text: { content: "N/A (Auto-Check)" } }] }
+        }
+      });
+      console.log(`✅ Bitácora Actualizada: ${response.url}`);
+    } catch (logError) {
+      console.error("⚠️ Error grabando log final:", logError.message);
+    }
   } else {
     console.log(
       `🔴 ${failures.length} PROBLEMA(S) DETECTADO(S):\n`,
@@ -156,4 +195,10 @@ async function run() {
   }
 }
 
-run();
+run().then(() => {
+  // Pequeña espera para asegurar que la consola flushea
+  setTimeout(() => process.exit(0), 500);
+}).catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
