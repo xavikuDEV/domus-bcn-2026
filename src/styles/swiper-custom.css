@@ -1,0 +1,18 @@
+/* Custom Swiper Styles for Domus BCN */
+.swiper-pagination-bullet {
+  background-color: #d1d5db; /* gray-300 */
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #1e3a8a; /* brand-blue */
+}
+
+/* Make sure buttons are clickable */
+.gallery-prev, .gallery-next {
+  cursor: pointer;
+}
+
+.gallery-prev:hover, .gallery-next:hover {
+  transform: scale(1.1) translateY(-50%);
+}

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import ImageWithFallback from "./ImageWithFallback";
 import Link from "next/link";
 import type { InmuebleInmovilla } from "../types/inmovilla";
 
@@ -20,12 +20,15 @@ export default function PropertyCard({ inmueble }: PropertyCardProps) {
   const hasImage = Boolean(heroImage);
 
   return (
-    <article className="hover-lift group flex flex-col overflow-hidden bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl">
+    <Link
+      href={`/inmueble/${inmueble.id}`}
+      className="hover-lift group flex flex-col overflow-hidden bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl"
+    >
       {/* Image section — 4:3 con zoom hover */}
       <div className="relative aspect-4/3 w-full overflow-hidden bg-gray-50">
         {hasImage ? (
-          <Image
-            src={heroImage}
+          <ImageWithFallback
+            src={heroImage as string}
             alt={inmueble.titulo || `Inmueble ${inmueble.referencia}`}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -80,24 +83,60 @@ export default function PropertyCard({ inmueble }: PropertyCardProps) {
         <div className="flex items-center gap-5 border-t border-gray-100 pt-3 text-xs text-brand-gray-dark">
           {inmueble.habitaciones > 0 && (
             <div className="flex items-center gap-1.5" title="Habitaciones">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5Z" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-4 w-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5Z"
+                />
               </svg>
               <span className="font-medium">{inmueble.habitaciones} hab.</span>
             </div>
           )}
           {inmueble.banos > 0 && (
             <div className="flex items-center gap-1.5" title="Baños">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-4 w-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
               </svg>
               <span className="font-medium">{inmueble.banos} baños</span>
             </div>
           )}
           {inmueble.metros_cons > 0 && (
-            <div className="flex items-center gap-1.5" title="Metros construidos">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-4 w-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+            <div
+              className="flex items-center gap-1.5"
+              title="Metros construidos"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="h-4 w-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+                />
               </svg>
               <span className="font-medium">{inmueble.metros_cons} m²</span>
             </div>
@@ -106,14 +145,11 @@ export default function PropertyCard({ inmueble }: PropertyCardProps) {
 
         {/* Botón DETALLES — outline negro */}
         <div className="mt-auto flex items-center justify-end pt-2">
-          <Link
-            href={`/inmueble/${inmueble.id}`}
-            className="hover-lift border border-brand-black px-5 py-2 text-[11px] font-bold uppercase tracking-widest text-brand-black transition-colors duration-300 hover:bg-brand-black hover:text-white"
-          >
+          <span className="hover-lift border border-brand-black px-5 py-2 text-[11px] font-bold uppercase tracking-widest text-brand-black transition-colors duration-300 group-hover:bg-brand-black group-hover:text-white">
             DETALLES
-          </Link>
+          </span>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

@@ -1,6 +1,6 @@
 /**
  * InmuebleInmovilla — Tipo que coincide EXACTAMENTE con la tabla `inmuebles` de Supabase.
- * Fuente de verdad: src/services/ingestion/xml-processor.ts (upsert)
+ * Fuente de verdad: schema de la DB y migración.
  */
 export interface InmuebleInmovilla {
   id: string;
@@ -18,4 +18,13 @@ export interface InmuebleInmovilla {
   fotos: string[];
   agente_id: string;
   sincronizado_at: string;
+  // Nuevas columnas Etapa 2
+  clase_energetica?: string;
+  ano_construccion?: number;
+  direccion?: string;
+  metros_utiles?: number;
+  orientacion?: string;
+  caracteristicas?: string[];
+  planta?: string;
+  video?: string;
 }

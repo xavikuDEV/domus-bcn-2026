@@ -3,7 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const NAV_ITEMS = ["Inicio", "Servicios", "Valoración", "Contacto"];
+const NAV_ITEMS = [
+  { name: "Inicio", path: "/" },
+  { name: "Comprar", path: "/inmuebles?operacion=venta" },
+  { name: "Alquilar", path: "/inmuebles?operacion=alquiler" },
+  { name: "Nosotros", path: "/#nosotros" },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,12 +29,12 @@ export default function Navbar() {
         {/* Menu central — desktop */}
         <ul className="hidden items-center gap-8 md:flex">
           {NAV_ITEMS.map((item) => (
-            <li key={item}>
+            <li key={item.name}>
               <Link
-                href={`#${item.toLowerCase()}`}
+                href={item.path}
                 className="text-sm font-semibold uppercase tracking-wider text-brand-gray-dark transition-colors duration-300 hover:text-brand-blue"
               >
-                {item}
+                {item.name}
               </Link>
             </li>
           ))}
@@ -37,10 +42,10 @@ export default function Navbar() {
 
         {/* CTA — desktop */}
         <Link
-          href="#valoracion"
+          href="/valoracion"
           className="hover-lift hidden rounded-none bg-brand-blue px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-white shadow-md shadow-brand-blue/20 hover:bg-brand-blue-dark sm:inline-block"
         >
-          VALORA TU PISO
+          VALORA TU INMUEBLE
         </Link>
 
         {/* Mobile menu button — hamburger / X */}
@@ -82,23 +87,23 @@ export default function Navbar() {
       >
         <ul className="flex flex-col px-4 py-4">
           {NAV_ITEMS.map((item) => (
-            <li key={item}>
+            <li key={item.name}>
               <Link
-                href={`#${item.toLowerCase()}`}
+                href={item.path}
                 onClick={() => setIsOpen(false)}
                 className="block py-3 text-sm font-semibold uppercase tracking-wider text-brand-gray-dark transition-colors duration-300 hover:text-brand-blue"
               >
-                {item}
+                {item.name}
               </Link>
             </li>
           ))}
           <li className="mt-2">
             <Link
-              href="#valoracion"
+              href="/valoracion"
               onClick={() => setIsOpen(false)}
               className="hover-lift block bg-brand-blue py-3 text-center text-sm font-bold uppercase tracking-wider text-white transition-all duration-300 hover:bg-brand-blue-dark"
             >
-              VALORA TU PISO
+              VALORA TU INMUEBLE
             </Link>
           </li>
         </ul>

@@ -1,8 +1,25 @@
 import { getInmuebles } from "../lib/supabase/queries";
 import PropertyCard from "./PropertyCard";
+import PropertyGalleryCarousel from "./PropertyGalleryCarousel";
 
-export default async function PropertyGallery() {
-  const inmuebles = await getInmuebles();
+interface PropertyGalleryProps {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export default async function PropertyGallery({
+  searchParams,
+}: PropertyGalleryProps) {
+  const tipo = Array.isArray(searchParams?.tipo)
+    ? searchParams.tipo[0]
+    : searchParams?.tipo;
+  const ciudad = Array.isArray(searchParams?.ciudad)
+    ? searchParams.ciudad[0]
+    : searchParams?.ciudad;
+  const operacion = Array.isArray(searchParams?.operacion)
+    ? searchParams.operacion[0]
+    : searchParams?.operacion;
+
+  const inmuebles = await getInmuebles({ tipo, ciudad, operacion });
 
   if (inmuebles.length === 0) {
     return (
@@ -26,7 +43,8 @@ export default async function PropertyGallery() {
             SIN INMUEBLES
           </h3>
           <p className="text-sm text-brand-gray">
-            Los inmuebles aparecer\u00e1n aqu\u00ed cuando se sincronicen desde Inmovilla.
+            Los inmuebles aparecer\u00e1n aqu\u00ed cuando se sincronicen desde
+            Inmovilla.
           </p>
         </div>
       </section>
@@ -34,7 +52,10 @@ export default async function PropertyGallery() {
   }
 
   return (
-    <section id="inmuebles" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <section
+      id="inmuebles"
+      className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+    >
       {/* Section header */}
       <div className="mb-10 text-center">
         <h2 className="text-2xl font-black uppercase tracking-wider text-brand-black sm:text-3xl">
@@ -42,15 +63,35 @@ export default async function PropertyGallery() {
         </h2>
         <div className="mx-auto mt-3 h-1 w-16 bg-brand-blue" />
         <p className="mt-4 text-sm text-brand-gray">
-          {inmuebles.length} {inmuebles.length === 1 ? "propiedad" : "propiedades"} disponibles
+          {inmuebles.length}{" "}
+          {inmuebles.length === 1 ? "propiedad" : "propiedades"} disponibles
         </p>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {inmuebles.map((inmueble) => (
-          <PropertyCard key={inmueble.id} inmueble={inmueble} />
-        ))}
+      {/* Swiper Carousel instead of Grid */}
+      <PropertyGalleryCarousel inmuebles={inmuebles} />
+
+      <div className="mt-12 text-center no-print">
+        <a
+          href="/inmuebles"
+          className="inline-flex items-center gap-2 rounded-sm bg-brand-black px-8 py-4 text-sm font-bold uppercase tracking-widest text-white shadow-md transition-all hover:bg-brand-blue"
+        >
+          Ver todos los inmuebles
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-5 h-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+            />
+          </svg>
+        </a>
       </div>
     </section>
   );

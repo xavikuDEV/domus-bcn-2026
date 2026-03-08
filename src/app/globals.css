@@ -56,3 +56,46 @@ html {
 .hover-lift:hover {
   transform: scale(1.02);
 }
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+
+  /* Force clean grid for prints */
+  main, section, article, .print-avoid-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Force images to print nice */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  @page {
+    margin: 1.5cm 1cm;
+  }
+
+  /* Create a faux header for the printed page */
+  body::before {
+    content: "DOMUS BCN 2026 - Luxury Real Estate";
+    display: block;
+    text-align: center;
+    font-size: 14pt;
+    font-weight: 900;
+    margin-bottom: 2cm;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #00a4e4;
+    padding-bottom: 0.5cm;
+  }
+}

@@ -1,5 +1,5 @@
 # 🏗️ Estructura del Proyecto: Domus BCN 2026
-> Última actualización: 07/03/2026 00:25:23
+> Última actualización: 07/03/2026 00:28:09
 > Total archivos fuente: **67** · **20** TypeScript · **17** JS · **1** CSS · **10** Markdown
 
 ├── 📁 .github

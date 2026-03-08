@@ -1,8 +1,15 @@
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import PropertyGallery from "../components/PropertyGallery";
+import HeroSearchBar from "../components/HeroSearchBar";
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const resolvedParams = await searchParams;
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navbar (fixed, glass) */}
@@ -30,125 +37,106 @@ export default function Home() {
             vende o alquila con la confianza de los mejores profesionales.
           </p>
 
-          {/* 3 CTAs rectangulares */}
-          <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
-            <Link
-              href="#inmuebles"
-              className="hover-lift w-full border-2 border-white bg-white/10 px-10 py-4 text-sm font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-brand-black sm:w-auto"
-            >
+          {/* Buscador Píldora */}
+          <HeroSearchBar />
+        </div>
+      </section>
+
+      {/* Los Tres Caminos (Botones de Intención) */}
+      <section className="relative z-20 -mt-8 px-4 sm:-mt-12">
+        <div className="mx-auto flex max-w-5xl flex-col justify-center gap-4 sm:flex-row sm:gap-6">
+          {/* Box 1: Comprar */}
+          <Link
+            href="/inmuebles?operacion=venta"
+            className="hover-lift flex flex-1 items-center justify-center gap-3 bg-white p-6 shadow-xl ring-1 ring-gray-900/5 transition-all hover:bg-brand-gray-light sm:p-8"
+          >
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </span>
+            <span className="text-sm font-bold uppercase tracking-widest text-brand-black">
               QUIERO COMPRAR
-            </Link>
-            <Link
-              href="#valoracion"
-              className="hover-lift w-full bg-brand-blue px-10 py-4 text-sm font-bold uppercase tracking-widest text-white shadow-lg shadow-brand-blue/30 transition-all duration-300 hover:bg-brand-blue-dark sm:w-auto"
-            >
-              QUIERO VENDER
-            </Link>
-            <Link
-              href="#inmuebles"
-              className="hover-lift w-full border-2 border-white bg-white/10 px-10 py-4 text-sm font-bold uppercase tracking-widest text-white backdrop-blur-sm transition-all duration-300 hover:border-white hover:bg-white hover:text-brand-black sm:w-auto"
-            >
+            </span>
+          </Link>
+
+          {/* Box 2: Alquilar */}
+          <Link
+            href="/inmuebles?operacion=alquiler"
+            className="hover-lift flex flex-1 items-center justify-center gap-3 bg-white p-6 shadow-xl ring-1 ring-gray-900/5 transition-all hover:bg-brand-gray-light sm:p-8"
+          >
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"
+                />
+              </svg>
+            </span>
+            <span className="text-sm font-bold uppercase tracking-widest text-brand-black">
               QUIERO ALQUILAR
-            </Link>
-          </div>
+            </span>
+          </Link>
+
+          {/* Box 3: Vender / Valorar */}
+          <Link
+            href="/valoracion"
+            className="hover-lift flex flex-1 items-center justify-center gap-3 bg-brand-blue p-6 shadow-xl shadow-brand-blue/20 transition-all hover:bg-brand-blue-dark sm:p-8"
+          >
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-white">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </span>
+            <span className="text-sm font-bold uppercase tracking-widest text-white">
+              VALORA TU INMUEBLE
+            </span>
+          </Link>
         </div>
       </section>
 
       {/* Gallery */}
       <main className="bg-white">
-        <PropertyGallery />
+        <PropertyGallery searchParams={resolvedParams} />
       </main>
 
-      {/* Sección Valoración */}
-      <section id="valoracion" className="bg-brand-gray-light px-4 py-20">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-2xl font-black uppercase tracking-wider text-brand-black sm:text-3xl">
-            VALORA TU INMUEBLE
-          </h2>
-          <div className="mx-auto mt-3 h-1 w-16 bg-brand-blue" />
-          <p className="mt-4 text-sm text-brand-gray">
-            Descubre el valor real de tu propiedad con nuestra valoración
-            profesional gratuita.
-          </p>
-
-          <form className="mt-10 flex flex-col gap-4">
-            <input
-              type="text"
-              placeholder="Tu nombre"
-              className="w-full border border-gray-200 bg-white px-4 py-3 text-sm text-brand-black outline-none transition-all duration-300 focus:border-brand-blue focus:shadow-sm"
-            />
-            <input
-              type="email"
-              placeholder="Tu email"
-              className="w-full border border-gray-200 bg-white px-4 py-3 text-sm text-brand-black outline-none transition-all duration-300 focus:border-brand-blue focus:shadow-sm"
-            />
-            <input
-              type="tel"
-              placeholder="Tu teléfono"
-              className="w-full border border-gray-200 bg-white px-4 py-3 text-sm text-brand-black outline-none transition-all duration-300 focus:border-brand-blue focus:shadow-sm"
-            />
-            <textarea
-              placeholder="Dirección del inmueble"
-              rows={3}
-              className="w-full resize-none border border-gray-200 bg-white px-4 py-3 text-sm text-brand-black outline-none transition-all duration-300 focus:border-brand-blue focus:shadow-sm"
-            />
-            <button
-              type="submit"
-              className="hover-lift mt-2 w-full bg-brand-black py-4 text-sm font-bold uppercase tracking-widest text-white transition-all duration-300 hover:bg-gray-800"
-            >
-              SOLICITAR VALORACIÓN
-            </button>
-          </form>
-        </div>
+      {/* Section Nosotros Placeholder */}
+      <section
+        id="nosotros"
+        className="bg-brand-gray-light px-4 py-20 text-center text-brand-gray"
+      >
+        {/* Placeholder para la sección nosotros */}
       </section>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-100 bg-brand-black py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Footer grid */}
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {/* Brand */}
-            <div>
-              <span className="text-xl font-black uppercase tracking-tight text-white">
-                DOMUS <span className="text-brand-blue">BCN</span>
-              </span>
-              <p className="mt-3 text-xs leading-relaxed text-gray-500">
-                Portal inmobiliario premium en Barcelona. Más de 20 años de
-                experiencia al servicio de nuestros clientes.
-              </p>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-widest text-gray-400">
-                CONTACTO
-              </h4>
-              <ul className="mt-3 space-y-2 text-xs text-gray-500">
-                <li>📍 Barcelona, España</li>
-                <li>📞 +34 93 XXX XX XX</li>
-                <li>✉️ info@domusbcn.com</li>
-              </ul>
-            </div>
-
-            {/* Legal */}
-            <div>
-              <h4 className="text-xs font-bold uppercase tracking-widest text-gray-400">
-                LEGAL
-              </h4>
-              <ul className="mt-3 space-y-2 text-xs text-gray-500">
-                <li>Aviso Legal</li>
-                <li>Política de Privacidad</li>
-                <li>Cookies</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Bottom bar */}
-          <div className="mt-10 border-t border-gray-800 pt-6 text-center text-xs text-gray-600">
-            © 2026 Domus BCN — Todos los derechos reservados
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

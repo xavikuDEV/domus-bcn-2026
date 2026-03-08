@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import FloatingButtons from "../components/FloatingButtons";
+import Footer from "../components/Footer";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,6 +32,11 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         {children}
+
+        <Footer />
+
+        {/* Global Floating Actions - visible across the whole site */}
+        <FloatingButtons propertyTitle="Domus BCN 2026" propertyId="home" />
       </body>
     </html>
   );
