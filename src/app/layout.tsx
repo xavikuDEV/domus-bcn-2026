@@ -15,11 +15,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Domus BCN | Inmobiliaria Boutique en Barcelona',
-  description: 'Encuentra tu hogar ideal en Barcelona con nuestra selección de propiedades exclusivas y servicios personalizados.',
-  themeColor: '#ffffff',
-  appleMobileWebAppCapable: 'yes',
-  appleMobileWebAppStatusBarStyle: 'black',
+  title: "Domus BCN | Inmobiliaria Boutique en Barcelona",
+  description: "Encuentra tu hogar ideal en Barcelona...",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Domus BCN",
+  },
+};
+
+export const viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
