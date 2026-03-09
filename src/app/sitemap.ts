@@ -1,6 +1,6 @@
-import { getStaticPaths } from 'next';
+import { MetadataRoute } from 'next';
 
-export const getStaticPaths = async () => {
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
     '/',
     '/inmuebles',
@@ -9,4 +9,4 @@ export const getStaticPaths = async () => {
     '/servicios',
     '/contacto',
   ];
-};
+}
