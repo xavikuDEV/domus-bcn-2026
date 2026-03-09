@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 interface BreadcrumbsProps {
-  tipo: string;
-  ciudad: string;
-  titulo: string;
+  tipo?: string;
+  ciudad?: string;
+  titulo?: string;
 }
 
 export default function Breadcrumbs({
@@ -12,34 +12,58 @@ export default function Breadcrumbs({
   titulo,
 }: BreadcrumbsProps) {
   return (
-    <nav className="flex items-center gap-2 text-xs text-brand-gray pb-4 no-print">
+    <nav className="flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-brand-gray pb-6 no-print flex-wrap">
       <Link href="/" className="hover:text-brand-blue transition-colors">
         Inicio
       </Link>
       <span className="text-gray-300">›</span>
+
+      {/* Si solo estamos en inmuebles, no tiene link, o si tiene mas cosas, si es link */}
+      {tipo || ciudad || titulo ? (
+        <Link
+          href="/inmuebles"
+          className="hover:text-brand-blue transition-colors"
+        >
+          Inmuebles
+        </Link>
+      ) : (
+        <span className="text-brand-black">Inmuebles</span>
+      )}
+
+      {(tipo || ciudad || titulo) && <span className="text-gray-300">›</span>}
+
       {tipo ? (
         <>
           <Link
-            href={`/?tipo=${tipo}`}
+            href={`/inmuebles?tipo=${tipo.toLowerCase()}`}
             className="hover:text-brand-blue transition-colors"
           >
-            {tipo.charAt(0).toUpperCase() + tipo.slice(1)}
+            {tipo}
           </Link>
-          <span className="text-gray-300">›</span>
+          {(ciudad || titulo) && <span className="text-gray-300">›</span>}
         </>
       ) : null}
+
       {ciudad ? (
         <>
           <Link
-            href={`/?ciudad=${ciudad}`}
+            href={`/inmuebles?ciudad=${ciudad}`}
             className="hover:text-brand-blue transition-colors"
           >
-            {ciudad.charAt(0).toUpperCase() + ciudad.slice(1)}
+            {ciudad}
           </Link>
-          <span className="text-gray-300">›</span>
+          {titulo && <span className="text-gray-300">›</span>}
         </>
       ) : null}
-      <span className="truncate text-brand-black">{titulo}</span>
+
+      {titulo && (
+        <span
+          className="truncate max-w-[200px] sm:max-w-xs md:max-w-md lg:max-w-lg text-brand-black"
+          title={titulo}
+        >
+          {titulo}
+        </span>
+      )}
     </nav>
   );
 }

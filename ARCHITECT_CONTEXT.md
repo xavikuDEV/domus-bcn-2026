@@ -2,10 +2,10 @@
 > Última actualización: 05/03/2026 23:12:00
 
 ## 📍 Estado Actual
-- **Fase:** Fase 1 (Backend e Ingesta) — **COMPLETADA** ✅
+- **Fase:** Fase 3.5 (Infraestructura de Sincronización) — **COMPLETADA** ✅
 - **Infraestructura:** **VALIDADA** ✅ (Seguridad PASS, Arquitectura PASS, Tests PASS)
 - **Último Hito:** Búnker 100% operativo — 12 agentes + 8 MCPs configurados
-- **Siguiente:** Tarea 6 — Frontend Gallery (PropertyCard.tsx)
+- **Siguiente:** Fase 4 (SEO Técnico, PWA, Optimización)
 
 ## 🤖 Equipo de Agentes (12)
 
@@ -76,6 +76,7 @@
 │   ├── 📄 log-event.mjs
 │   ├── 📄 pre-deploy.ps1
 │   ├── 📄 sync.ps1
+│   ├── 📄 sync_notion.py
 │   ├── 📄 test-notion-https.mjs
 │   └── 📄 update-structure.ps1
 ├── 📁 src
@@ -168,25 +169,19 @@
 | 4️⃣ | **Roadmap**: Marcar tarea como "Listo" | MCP Notion |
 | 5️⃣ | **Sync**: Commit + push a GitHub | MCP GitHub |
 
+### 🤖 Protocolo de Ejecución Híbrida (Master Flow)
+| Paso | Actor | Acción | Herramienta |
+|------|-------|--------|-------------|
+| 1️⃣ | **Orquestador** | Analiza la tarea y genera la instrucción | Antigravity |
+| 2️⃣ | **Obrero** | Ejecuta el código y genera `logs/update.json` | Aider (Groq) |
+| 3️⃣ | **Orquestador** | Valida el cambio y ejecuta `sync_notion.py` | Terminal |
+
 ## 📖 Roadmap de Documentación
 
-### Fase 1 — Actual ✅
+### Fase 3.5 — Infraestructura Sync ✅
+- **Sincronización Automática** configurada mediante `sync_notion.py`.
+- **Groq + Aider** implementados como herramientas de ahorro.
 
-- **Vault de Notion** como bóveda de conocimiento centralizada y privada.
+### Fase 4 — Actual
+- **SEO, PWA, Optimización** (Sitemap, Robots, Metatags, Lighthouse +90).
 
-### Fase 2 — Post-Frontend
-
-=======
-- **Vault de Notion** como bóveda de conocimiento centralizada y privada.
-
-### Fase 2 — Post-Frontend
-- **Nextra / Starlight**: Web de documentación generada desde Markdown.
-  - Carpeta `/docs` convertida en sitio estático premium.
-  - Technical Writer mantiene actualización continua.
-
-### Fase 3 — Escalado
-
-=======
-- **TypeDoc**: Documentación automática desde comentarios TypeScript.
-  - Genera referencia API de funciones, servicios y componentes.
-  - Permite onboarding inmediato de futuros agentes.

@@ -42,3 +42,4 @@ logs/
 # --- NOTA ---
 # No ignoramos .antigravity porque contiene las 'Skills' 
 # que los agentes necesitan compartir en el repositorio.
+.aider*

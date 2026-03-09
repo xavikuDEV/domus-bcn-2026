@@ -7,7 +7,9 @@ const NAV_ITEMS = [
   { name: "Inicio", path: "/" },
   { name: "Comprar", path: "/inmuebles?operacion=venta" },
   { name: "Alquilar", path: "/inmuebles?operacion=alquiler" },
-  { name: "Nosotros", path: "/#nosotros" },
+  { name: "Servicios", path: "/servicios" },
+  { name: "Nosotros", path: "/nosotros" },
+  { name: "Contacto", path: "/contacto" },
 ];
 
 export default function Navbar() {

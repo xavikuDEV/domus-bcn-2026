@@ -45,9 +45,9 @@ export async function getInmuebles(filters?: {
     query = query.gte("banos", parseInt(filters.banosMin, 10));
   }
   if (filters?.q) {
-    // Search in referencia, titulo, or descripcion
+    // Search in referencia, titulo, descripcion, or ciudad
     query = query.or(
-      `referencia.ilike.%${filters.q}%,titulo.ilike.%${filters.q}%,descripcion.ilike.%${filters.q}%`,
+      `referencia.ilike.%${filters.q}%,titulo.ilike.%${filters.q}%,descripcion.ilike.%${filters.q}%,ciudad.ilike.%${filters.q}%`,
     );
   }
 
