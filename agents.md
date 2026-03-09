@@ -36,6 +36,8 @@ Construir una plataforma inmobiliaria premium para Barcelona (Domus BCN) que aut
      `git commit -m "docs: sync notion [task name]"` (Solo si hay cambios pendientes)
      `git push origin main`
      Esto asegura que el código y el Roadmap en la nube estén siempre en espejo.
+7. **Regla de Memoria Total:** Cada vez que cierres un hito o fase, es OBLIGATORIO ejecutar `python scripts/sync_drive.py`.
+   - **Objetivo:** Esto asegura que NotebookLM tenga siempre la última versión de la arquitectura y contexto del proyecto.
 
 ## 📂 Estructura Crítica
 

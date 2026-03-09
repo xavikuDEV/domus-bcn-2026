@@ -1,8 +1,8 @@
 function Show-Menu {
     Clear-Host
     Write-Host "╔══════════════════════════════════════════════════╗" -ForegroundColor Cyan
-    Write-Host "║     🏢 DOMUS BCN 2026 — SISTEMA OPERATIVO       ║" -ForegroundColor Cyan
-    Write-Host "║         Versión 2.0 · $(Get-Date -Format 'dd/MM/yyyy')              ║" -ForegroundColor Cyan
+    Write-Host "║      🏢 DOMUS BCN 2026 — SISTEMA OPERATIVO       ║" -ForegroundColor Cyan
+    Write-Host "║          Versión 2.0 · $(Get-Date -Format 'dd/MM/yyyy')               ║" -ForegroundColor Cyan
     Write-Host "╠══════════════════════════════════════════════════╣" -ForegroundColor Cyan
     Write-Host "║                                                  ║" -ForegroundColor Cyan
     Write-Host "║  1. 📋 [DOCS]    Actualizar Estructura           ║" -ForegroundColor White
@@ -13,7 +13,8 @@ function Show-Menu {
     Write-Host "║  6. 🚢 [DEPLOY]  Pre-Deploy Check                ║" -ForegroundColor White
     Write-Host "║  7. 📡 [NOTION]  Debug Notion (ver IDs)          ║" -ForegroundColor White
     Write-Host "║  8. 📓 [LOG]     Registrar evento en Bitácora    ║" -ForegroundColor White
-    Write-Host "║  9. ➕ [TASK]    Crear tarea en Roadmap           ║" -ForegroundColor White
+    Write-Host "║  9. ➕ [TASK]    Crear tarea en Roadmap          ║" -ForegroundColor White
+    Write-Host "║ 10. ☁️ [DRIVE]   Sincronizar con Google Drive    ║" -ForegroundColor White
     Write-Host "║  0. 🚪 Salir                                     ║" -ForegroundColor White
     Write-Host "║                                                  ║" -ForegroundColor Cyan
     Write-Host "╚══════════════════════════════════════════════════╝" -ForegroundColor Cyan
@@ -61,6 +62,10 @@ do {
         "9" {
             $taskName = Read-Host "📋 Nombre de la tarea"
             node scripts/create-task.mjs "$taskName"
+        }
+        "10" {
+            Write-Host "☁️ Sincronizando documentación con Google Drive..." -ForegroundColor Cyan
+            python scripts/sync_drive.py
         }
         "0" { $salir = $true }
         default { Write-Host "⚠️ Opción no válida." -ForegroundColor Yellow }
