@@ -15,9 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Domus BCN 2026 — Portal Inmobiliario Premium",
-  description:
-    "Encuentra tu hogar ideal en Barcelona. Propiedades exclusivas, pisos, casas y locales sincronizados desde Inmovilla.",
+  title: 'Domus BCN | Inmobiliaria Boutique en Barcelona',
+  description: 'Encuentra tu hogar ideal en Barcelona con nuestra selección de propiedades exclusivas y servicios personalizados.',
 };
 
 export default function RootLayout({
