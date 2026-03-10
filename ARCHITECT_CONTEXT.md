@@ -2,10 +2,10 @@
 > Última actualización: 05/03/2026 23:12:00
 
 ## 📍 Estado Actual
-- **Fase:** Fase 4 (SEO y Rendimiento) — **Finalizando** ⏳
+- **Fase:** Fase 4 (SEO y Rendimiento) — **COMPLETADA** ✅
 - **Infraestructura:** **VALIDADA** ✅ (Seguridad PASS, Arquitectura PASS, Tests PASS)
-- **Último Hito:** Misión 4.3 (Correcciones de Metadatos, Consola, PWA e Imágenes) — **COMPLETADA** ✅
-- **Siguiente:** Inicio Fase 5 (Property Cards)
+- **Último Hito:** Misión 4.4 (Sellado del Búnker - Intervención Manual) — **COMPLETADA** ✅
+- **Siguiente:** Inicio Fase 5 (Frontend Premium: Property Cards & Grid)
 
 ## 🤖 Equipo de Agentes (12)
 
@@ -207,6 +207,12 @@
 1. **Tarea 6:** Diseño de `PropertyCard.tsx` (Server Component)
 2. **Componentes:** `PropertyGallery.tsx` (grid responsive)
 3. **Queries:** `lib/supabase/queries.ts` (fetch tipado)
+
+## 📉 Backlog de Deuda Técnica (Tareas de Infraestructura Pendientes)
+
+- **Item A:** Implementar Route Handlers (`/api/inmovilla`) para las peticiones de imágenes y datos para evitar errores de CORB/CORS en el cliente.
+- **Item B:** Endurecimiento de la CSP para producción (remover `unsafe-eval`) al finalizar el desarrollo.
+- **Item C:** Conectar el Ingestor a la API real de Inmovilla.
 
 ## 🔄 Protocolos de Operación Estándar (SOPs)
 

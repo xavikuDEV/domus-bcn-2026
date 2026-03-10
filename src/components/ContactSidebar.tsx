@@ -87,24 +87,28 @@ export default function ContactSidebar({ referencia }: ContactSidebarProps) {
         </button>
 
         {/* Quick contact form */}
+        {/* Quick contact form */}
         <form className="flex flex-col gap-3 border-t border-gray-100 pt-4">
           <p className="text-xs font-bold uppercase tracking-wider text-brand-gray">
             Formulario rápido
           </p>
           <input
             id="contact-name"
+            name="contact-name"
             type="text"
             placeholder="Tu nombre"
             className="w-full border border-gray-200 bg-white px-3 py-2.5 text-sm text-brand-black outline-none transition-all duration-200 focus:border-brand-blue"
           />
           <input
             id="contact-phone"
+            name="contact-phone"
             type="tel"
             placeholder="Tu teléfono"
             className="w-full border border-gray-200 bg-white px-3 py-2.5 text-sm text-brand-black outline-none transition-all duration-200 focus:border-brand-blue"
           />
           <textarea
             id="contact-message"
+            name="contact-message"
             placeholder="Me interesa este inmueble..."
             rows={3}
             className="w-full resize-none border border-gray-200 bg-white px-3 py-2.5 text-sm text-brand-black outline-none transition-all duration-200 focus:border-brand-blue"

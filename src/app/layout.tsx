@@ -22,17 +22,6 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
     title: "Domus BCN",
   },
-  icons: [
-    {
-      url: "/icon.svg",
-      type: "image/svg+xml",
-    },
-    {
-      url: "/apple-icon.svg",
-      type: "image/svg+xml",
-      rel: "apple-touch-icon",
-    },
-  ],
 };
 
 export const viewport = {
@@ -51,10 +40,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         {children}
-
         <Footer />
-
-        {/* Global Floating Actions - visible across the whole site */}
         <FloatingButtons propertyTitle="Domus BCN 2026" propertyId="home" />
       </body>
     </html>
