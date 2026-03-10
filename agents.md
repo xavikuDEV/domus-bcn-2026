@@ -30,7 +30,7 @@ Construir una plataforma inmobiliaria premium para Barcelona (Domus BCN) que aut
 6. **Delegación Inteligente (Master Flow):** El Orquestador delega tareas técnicas repetitivas (SEO, CSS, metadatos) en **Aider (Groq)** para optimizar costes.
    - **Acción:** El Orquestador dispara el comando `aider --model groq/...`.
    - **Supervisión:** El Orquestador revisa el código resultante antes de dar la tarea por buena.
-   - **Log Detallado:** El `logs/update.json` DEBE incluir un `summary` técnico de 3-4 líneas (archivos, lógica aplicada e impacto), evitando descripciones genéricas. Por ejemplo: "Se agregó el componente CardPropiedad que muestra una tarjeta con la información de una propiedad. Se agregaron los archivos src/components/CardPropiedad.tsx y src/components/CardPropiedad.module.css. El impacto es mediano ya que se agregó un nuevo componente."
+   - **Log Detallado:** El `logs/update.json` DEBE incluir un `summary` técnico de 3-4 líneas (archivos, lógica aplicada e impacto), evitando descripciones genéricas. El ahorro de tokens NO justifica una Bitácora vacía. El campo "Contenido" en Notion debe incluir siempre un walkthrough técnico detallado de los archivos modificados y la lógica aplicada.
    - **Sincronización Git (Obligatoria):** Tras cada éxito en Notion, el Orquestador DEBE ejecutar:
      `git add .`
      `git commit -m "docs: sync notion [task name]"` (Solo si hay cambios pendientes)

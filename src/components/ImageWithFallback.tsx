@@ -10,7 +10,7 @@ interface ImageWithFallbackProps extends React.ComponentProps<typeof Image> {
 export default function ImageWithFallback({
   src,
   alt,
-  fallbackSrc = "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
+  fallbackSrc = "/placeholder.svg",
   ...rest
 }: ImageWithFallbackProps) {
   const [imgSrc, setImgSrc] = useState(src);

@@ -37,6 +37,7 @@ function parseArgs() {
     hash: null,
     impacto: "Medio",
     duracion: null,
+    contenido: null,
   };
 
   for (let i = 2; i < args.length; i += 2) {
@@ -48,14 +49,24 @@ function parseArgs() {
     if (flag === "hash") result.hash = value;
     if (flag === "impacto") result.impacto = value;
     if (flag === "duracion") result.duracion = value;
+    if (flag === "contenido") result.contenido = value;
   }
 
   return result;
 }
 
 async function logEvent() {
-  const { action, files, fase, agente, categoria, hash, impacto, duracion } =
-    parseArgs();
+  const {
+    action,
+    files,
+    fase,
+    agente,
+    categoria,
+    hash,
+    impacto,
+    duracion,
+    contenido,
+  } = parseArgs();
 
   const now = new Date();
   const today = now.toISOString().split("T")[0];
@@ -100,13 +111,35 @@ async function logEvent() {
     properties.Fase = { select: { name: fase } };
   }
 
+  const children = contenido
+    ? [
+        {
+          object: "block",
+          type: "paragraph",
+          paragraph: {
+            rich_text: [
+              {
+                type: "text",
+                text: {
+                  content: contenido.substring(0, 2000),
+                },
+              },
+            ],
+          },
+        },
+      ]
+    : undefined;
+
   try {
     const response = await notion.pages.create({
       parent: { database_id: BITACORA_ID },
       properties,
+      children,
     });
     console.log(`✅ Bitácora: ${action}`);
-    console.log(`🕐 Hora: ${hora} | Impacto: ${impacto}${duracion ? ` | Duración: ${duracion}` : ""}`);
+    console.log(
+      `🕐 Hora: ${hora} | Impacto: ${impacto}${duracion ? ` | Duración: ${duracion}` : ""}`,
+    );
     if (hash) {
       console.log(`🔗 ${commitUrl}`);
     }

@@ -22,7 +22,6 @@ export const metadata: Metadata = {
     statusBarStyle: "black-translucent",
     title: "Domus BCN",
   },
-  themeColor: "#ffffff",
   icons: [
     {
       url: "/icon-192x192.png",
@@ -47,7 +46,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning data-scroll-behavior="smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}
