@@ -280,7 +280,7 @@ export default async function Home({
           </div>
           <div className="w-1/5 h-48 sm:h-64 bg-gray-200 relative group cursor-pointer">
             <img
-              src="https://images.unsplash.com/photo-1541885061690-e223aaed42d0?auto=format&fit=crop&w=500&q=80"
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&q=80"
               alt="Lifestyle 5"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />

@@ -79,7 +79,9 @@ export default function AdvancedFilterSidebar() {
   return (
     <aside className="w-full bg-brand-gray-light p-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-black uppercase tracking-widest text-brand-black">Filtros</h3>
+        <h3 className="text-xl font-black uppercase tracking-widest text-brand-black">
+          Filtros
+        </h3>
         <button
           onClick={clearFilters}
           className="text-xs font-bold uppercase text-brand-blue hover:text-brand-blue-dark transition-colors"
@@ -91,7 +93,12 @@ export default function AdvancedFilterSidebar() {
       <div className="flex flex-col gap-6">
         {/* Keyword / Referencia */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="q" className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark">Búsqueda Libre / Referencia</label>
+          <label
+            htmlFor="q"
+            className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark"
+          >
+            Búsqueda Libre / Referencia
+          </label>
           <input
             id="q"
             name="q"
@@ -105,7 +112,12 @@ export default function AdvancedFilterSidebar() {
 
         {/* Operación */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="operacion" className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark">Operación</label>
+          <label
+            htmlFor="operacion"
+            className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark"
+          >
+            Operación
+          </label>
           <select
             id="operacion"
             name="operacion"
@@ -121,7 +133,12 @@ export default function AdvancedFilterSidebar() {
 
         {/* Tipo */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="tipo" className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark">Tipo de Inmueble</label>
+          <label
+            htmlFor="tipo"
+            className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark"
+          >
+            Tipo de Inmueble
+          </label>
           <select
             id="tipo"
             name="tipo"
@@ -140,9 +157,12 @@ export default function AdvancedFilterSidebar() {
 
         {/* Precio */}
         <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark">Precio (€)</label>
+          <label className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark">
+            Precio (€)
+          </label>
           <div className="flex gap-2">
             <input
+              id="precioMin"
               name="precioMin"
               type="number"
               placeholder="Mínimo"
@@ -151,6 +171,7 @@ export default function AdvancedFilterSidebar() {
               className="w-full border border-gray-200 bg-white p-3 text-sm outline-none focus:border-brand-blue transition-colors"
             />
             <input
+              id="precioMax"
               name="precioMax"
               type="number"
               placeholder="Máximo"
@@ -164,7 +185,12 @@ export default function AdvancedFilterSidebar() {
         {/* Habitaciones y Baños */}
         <div className="flex gap-4">
           <div className="flex flex-col gap-2 w-1/2">
-            <label htmlFor="habitacionesMin" className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark">Habitaciones</label>
+            <label
+              htmlFor="habitacionesMin"
+              className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark"
+            >
+              Habitaciones
+            </label>
             <select
               id="habitacionesMin"
               name="habitacionesMin"
@@ -180,7 +206,12 @@ export default function AdvancedFilterSidebar() {
             </select>
           </div>
           <div className="flex flex-col gap-2 w-1/2">
-            <label htmlFor="banosMin" className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark">Baños</label>
+            <label
+              htmlFor="banosMin"
+              className="text-xs font-bold uppercase tracking-wider text-brand-gray-dark"
+            >
+              Baños
+            </label>
             <select
               id="banosMin"
               name="banosMin"
