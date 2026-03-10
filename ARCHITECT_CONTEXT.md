@@ -38,12 +38,12 @@
 | Google Drive | Docs para NotebookLM |
 
 ## 🏗️ Estructura del Proyecto
-> Auto-generado por `scripts/generate-context.ps1` — 09/03/2026 23:10
+> Auto-generado por `scripts/generate-context.ps1` — 10/03/2026 20:21
 
 ```
 # 🏗️ Estructura del Proyecto: Domus BCN 2026
-> Última actualización: 09/03/2026 23:10:47
-> Total archivos fuente: **109** · **50** TypeScript · **20** JS · **2** CSS · **13** Markdown
+> Última actualización: 10/03/2026 20:21:16
+> Total archivos fuente: **124** · **51** TypeScript · **24** JS · **2** CSS · **13** Markdown
 
 ├── 📁 .aider.tags.cache.v4
 │   └── 📄 cache.db
@@ -60,10 +60,19 @@
 │   └── 📄 TESTING_STRATEGY.md
 ├── 📁 logs
 ├── 📁 public
+│   ├── 📄 apple-icon.svg
 │   ├── 📄 file.svg
 │   ├── 📄 globe.svg
+│   ├── 📄 icon-192.png
+│   ├── 📄 icon-192x192.png
+│   ├── 📄 icon-512.png
+│   ├── 📄 icon-512x512.png
+│   ├── 📄 icon.svg
 │   ├── 📄 next.svg
+│   ├── 📄 placeholder.svg
 │   ├── 📄 robots.txt
+│   ├── 📄 screenshot-mobile.png
+│   ├── 📄 screenshot-wide.png
 │   ├── 📄 vercel.svg
 │   └── 📄 window.svg
 ├── 📁 scripts
@@ -79,11 +88,14 @@
 │   ├── 📄 fixImages.ts
 │   ├── 📄 force-log.mjs
 │   ├── 📄 generate-context.ps1
+│   ├── 📄 generate-icons.mjs
+│   ├── 📄 generate-screenshots.mjs
 │   ├── 📄 git-push.ps1
 │   ├── 📄 health-check.mjs
 │   ├── 📄 init-phase-2.mjs
 │   ├── 📄 log-event.mjs
 │   ├── 📄 pre-deploy.ps1
+│   ├── 📄 sync_drive.py
 │   ├── 📄 sync_master.py
 │   ├── 📄 sync.ps1
 │   ├── 📄 test-notion-https.mjs
@@ -112,6 +124,7 @@
 │   │   ├── 📄 favicon.ico
 │   │   ├── 📄 globals.css
 │   │   ├── 📄 layout.tsx
+│   │   ├── 📄 manifest.ts
 │   │   ├── 📄 page.tsx
 │   │   └── 📄 sitemap.ts
 │   ├── 📁 components
@@ -173,6 +186,7 @@
 ├── 📄 .gitignore
 ├── 📄 agents.md
 ├── 📄 ARCHITECT_CONTEXT.md
+├── 📄 credentials.json
 ├── 📄 eslint.config.mjs
 ├── 📄 fire_test.bat
 ├── 📄 menu.ps1
@@ -182,6 +196,7 @@
 ├── 📄 postcss.config.mjs
 ├── 📄 push.bat
 ├── 📄 README.md
+├── 📄 token.json
 ├── 📄 tsconfig.json
 └── 📄 vitest.config.mts
 
